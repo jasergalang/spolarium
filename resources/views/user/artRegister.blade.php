@@ -15,7 +15,8 @@
         </div>
 
             <div class="space-y-4">
-
+            <form method="POST" action="{{ route('register') }}">
+                    @csrf
                 {{-- dinivide ko sa dalwa --}}
                 <div class="flex">
                     <div class="w-1/2 p-4">
