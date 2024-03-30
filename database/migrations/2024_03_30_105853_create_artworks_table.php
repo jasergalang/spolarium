@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('desc');
             $table->integer('price');
             $table->string('category');
+            $table->string('status');
             $table->softDeletes();
             $table->timestamps();
         });
