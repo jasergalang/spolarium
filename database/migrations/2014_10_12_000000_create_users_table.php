@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('roles');
             $table->string('image_path');
+            $table->string('status');
             $table->timestamp('email_verified_at')->nullable();
             $table->softDeletes();
             $table->rememberToken();
