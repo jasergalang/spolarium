@@ -44,8 +44,8 @@
                 <p>Don't have an Account? <a href="#" class="text-red-800 text-semibold" onclick="toggleRegisterOptions()">Register Now</a></p>
             <div id="registerOptions" class="hidden mt-4 justify-center">
             <div class="flex mt-4 gap-4">
-                <a href="" class="w-1/2 py-2 text-center text-white bg-gray-700 rounded uppercase font-roboto fonr-medium text-sm hover:bg-red-800 hover:scale-105 transition-transform hover:font-bold">Customer</a>
-                <a href="" class="w-1/2 py-2 text-center text-white bg-gray-700 rounded uppercase font-roboto fonr-medium text-sm hover:bg-red-800 hover:scale-105 transition-transform hover:font-bold">Artist</a>
+                <a href="{{ route('cusregister') }}" class="w-1/2 py-2 text-center text-white bg-gray-700 rounded uppercase font-roboto fonr-medium text-sm hover:bg-red-800 hover:scale-105 transition-transform hover:font-bold">Customer</a>
+                <a href="{{ route('artregister') }}" class="w-1/2 py-2 text-center text-white bg-gray-700 rounded uppercase font-roboto fonr-medium text-sm hover:bg-red-800 hover:scale-105 transition-transform hover:font-bold">Artist</a>
             </div>
             </div>
             </div>

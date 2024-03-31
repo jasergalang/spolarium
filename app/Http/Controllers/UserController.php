@@ -25,11 +25,14 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function storeArtist(Request $request)
     {
         //
     }
-
+    public function storeCustomer(Request $request)
+    {
+        //
+    }
     /**
      * Display the specified resource.
      */
