@@ -18,6 +18,9 @@ use App\Http\Controllers\VerificationController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('artwork', function () {
+    return view('artwork.create');
+});
 
 
 // Route::get('/mail', function () {
