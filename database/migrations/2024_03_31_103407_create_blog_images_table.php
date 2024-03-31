@@ -11,20 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('blog_images', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->date('date');
-            $table->time('time'); // Add time field
-            $table->string('description');
-            $table->string('location');
-            $table->string('category');
-            $table->softDelete();
+            $table->foreignId('blog_id')->constrained('blogs')->onDelete('cascade');
+            $table->string('image');
             $table->timestamps();
-        
         });
-        
-        
     }
 
     /**
@@ -32,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('blog_images');
     }
 };

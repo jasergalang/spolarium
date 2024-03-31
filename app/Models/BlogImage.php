@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models; // Corrected the namespace
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Blog extends Model
+class BlogImage extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['image'];
 }
