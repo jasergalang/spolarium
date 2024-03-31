@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\BlogController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,3 +77,17 @@ Route::get('verify/{token}', [AuthController::class, 'verify']);
 //email verification
 Route::get('/email/verify', [VerificationController::class, 'sendVerificationEmail'])->name('verification.send');
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
+
+
+//blogs route pare
+// Route to display the blogs dashboard
+Route::get('/blogsdashboard', [BlogController::class, 'dashboard'])->name('blogsdashboard');
+Route::get('/createblogs', [BlogController::class, 'create'])->name('blogs.create');
+Route::post('/createblogs', [BlogController::class, 'store'])->name('blogs.store');
+Route::get('/show/{id}', [BlogController::class, 'show'])->name('blogs.show');
+// Route::get('/edit/{id}', [BlogController::class, 'edit'])->name('blogs.edit');
+Route::delete('/destroy/{id}', [BlogController::class, 'destroy'])->name('blogs.destroy');
+// Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
+Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
+Route::get('/blogs/{id}', [BlogController::class, 'update'])->name('blogs.update');
+// Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->name('blogs.destroy');
