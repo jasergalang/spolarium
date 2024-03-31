@@ -1,7 +1,8 @@
 @extends('layout.layout')
 
 @section('content')
-
+<form action="{{route('login.post')}}" method="post">
+    @csrf
 
             <section class="bg-red-800
             min-h-screen flex items-center justify-center">
@@ -64,7 +65,7 @@
             </div>
             </div>
             </section>
-
+        </form>
 {{-- @include('layout.footer'); --}}
 @endsection
 

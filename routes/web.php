@@ -3,12 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\LoginController;
-<<<<<<< HEAD
 use App\Http\Controllers\EventController;
-
-=======
+use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\VerificationController;
->>>>>>> 605a8c6d4dc607b459b154d497696a1f8d663bc4
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,16 +23,15 @@ Route::get('/', function () {
 Route::get('artwork', function () {
     return view('artwork.create');
 });
-
-
-Route::get('/createevent', function () {
-    return view('event.createevent');
+Route::get('art', function () {
+    return view('artwork.dashboard');
 });
-
+Route::get('testing', function () {
+    return view('layout.testing');
+});
 Route::get('/event', function () {
     return view('event.eventdashboard');
 });
-
 Route::get('/manageevent', function () {
     return view('event.manageevent');
 });
@@ -50,7 +46,7 @@ Route::post('artregister', [AuthController::class, 'artRegister'])->name('artreg
 Route::get('cusregister', [AuthController::class, 'customerRegister'])->name('cusregister');
 Route::post('cusregister', [AuthController::class, 'cusRegister'])->name('cusregister.store');
 
-<<<<<<< HEAD
+
 //Events
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
@@ -59,17 +55,22 @@ Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('even
 Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
 Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
+//ArtworkCrud
+Route::get('/artwork/dashboard', [ArtworkController::class, 'dashboard'])->name('artwork.dashboard');
+Route::get('/artwork/create', [ArtworkController::class, 'create'])->name('artwork.create');
+Route::post('/artwork', [ArtworkController::class, 'store'])->name('artwork.store');
+Route::get('/artworks/{id}', [ArtworkController::class, 'show'])->name('artwork.show');
+Route::get('/artworks/{id}/edit', [ArtworkController::class, 'edit'])->name('artwork.edit');
+Route::put('/artworks/{id}', [ArtworkController::class, 'update'])->name('artwork.update');
+Route::delete('/artworks/{id}', [ArtworkController::class, 'destroy'])->name('artwork.destroy');
 
-
-
-
-//register na may database?
-Route::post('/register', [AuthController::class, 'register'])->name('register');
 //login na may database (di gumagana login logic taga show lang sya ng website)
-=======
+
 //login
->>>>>>> 605a8c6d4dc607b459b154d497696a1f8d663bc4
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'loginPost'])->name('login.post');
+
 Route::get('verify/{token}', [AuthController::class, 'verify']);
 
 //email verification

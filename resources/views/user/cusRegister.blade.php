@@ -114,7 +114,7 @@
 
         <p class="mt-4 text-gray-500 text-center">
             Already got an Account?
-            <a href="" class="text-primary text-semibold">Login Now</a>
+            <a href="login" class="text-primary text-semibold">Login Now</a>
         </p>
 
     </div>

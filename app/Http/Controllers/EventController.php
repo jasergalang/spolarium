@@ -11,13 +11,13 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::all();
-        return view('events.index', compact('events'));
+        return view('event.index', compact('events'));
     }
 
     // Show the form for creating a new event
     public function create()
     {
-        return view('events.create');
+        return view('event.create');
     }
 
     // Store a newly created event in the database
@@ -30,7 +30,7 @@ class EventController extends Controller
         ]);
 
         Event::create($request->all());
-        
+
         return redirect()->route('events.index')
             ->with('success', 'Event created successfully.');
     }
@@ -38,7 +38,7 @@ class EventController extends Controller
     // Show the form for editing the specified event
     public function edit(Event $event)
     {
-        return view('events.edit', compact('event'));
+        return view('event.edit', compact('event'));
     }
 
     // Update the specified event in the database
