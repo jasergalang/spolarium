@@ -12,7 +12,7 @@
 <!-- <form method="POST" action=""> -->
 @csrf
 
-<div class="flex justify-center"> 
+<div class="flex justify-center">
     <div class="container py-6 space-x-5 space-y-5 bg-white">
 
         <div class="grid grid-cols-2">
@@ -266,4 +266,5 @@
 
 
 </div>
-</div> 
+</div>
+@endsection
