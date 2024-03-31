@@ -14,7 +14,7 @@ class Event extends Model
     protected $fillable = ['title', 'date','time', 'description', 'location', 'category',];
     public function image()
     {
-        return $this->hasOne(EventImage::class);
+        return $this->hasOne(EventImage::class, 'event_id');
     }
- // Add 'type' to fillable fields
+
 }

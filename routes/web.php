@@ -7,6 +7,8 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\MaterialController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -66,10 +68,23 @@ Route::put('/artworks/{id}', [ArtworkController::class, 'update'])->name('artwor
 Route::delete('/artworks/{id}', [ArtworkController::class, 'destroy'])->name('artwork.destroy');
 Route::put('/artwork/{id}/restore', [ArtworkController::class, 'restore'])->name('artwork.restore');
 
-//login na may database (di gumagana login logic taga show lang sya ng website)
+//MaterialCrud
+Route::get('/material/dashboard', [MaterialController::class, 'dashboard'])->name('material.dashboard');
+Route::get('/material/create', [MaterialController::class, 'create'])->name('material.create');
+Route::post('/material', [MaterialController::class, 'store'])->name('material.store');
+Route::get('/material/{id}', [MaterialController::class, 'show'])->name('material.show');
+Route::get('/material/{id}/edit', [MaterialController::class, 'edit'])->name('material.edit');
+Route::put('/material/{id}', [MaterialController::class, 'update'])->name('material.update');
+Route::delete('/material/{id}', [MaterialController::class, 'destroy'])->name('material.destroy');
+Route::put('/material/{id}/restore', [MaterialController::class, 'restore'])->name('material.restore');
+
+//profile
+Route::get('/profile', [AuthController::class, 'show'])->name('user.profile');
 
 //login
-
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+});
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'loginPost'])->name('login.post');
 

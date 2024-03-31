@@ -4,8 +4,8 @@
 @section('content')
 @include('layout.artHeader')
 @include('layout.artNav')
-{{-- {{ route('artwork.store') }} --}}
-<form method="POST" action="" enctype="multipart/form-data">
+{{--  --}}
+<form method="POST" action="{{ route('material.store') }}" enctype="multipart/form-data">
     @csrf
 <div class="container py-6 space-x-5 space-y-5 bg-white">
     <div class="grid grid-cols-2">
