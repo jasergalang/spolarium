@@ -1,13 +1,16 @@
 @component('mail::message')
 
-   <p> Hello, {{$user->name}} <p>
+   <p> Hello, {{$user->fname}} <p>
 
 @component('mail::button', ['url' => url('verify/'. $user->remember_token)])
 Verify
-
 @endcomponent
 
-<p>Kung May Problema ka Pukpok mo nalang sa ulo mo </p>
-<p>Thank You!</p>
+<div style="text-align: center;">
+   <p>We Noticed, You've Registered On Our Website</p>
+   <p>Click on the Verify Button to verify your Account!</p>
+   <p>Thank You!</p>
+</div>
+
 {{ config('app.name')}}
 @endcomponent

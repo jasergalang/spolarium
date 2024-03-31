@@ -3,12 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\LoginController;
-<<<<<<< HEAD
 use App\Http\Controllers\EventController;
-
-=======
 use App\Http\Controllers\VerificationController;
->>>>>>> 605a8c6d4dc607b459b154d497696a1f8d663bc4
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,7 +44,6 @@ Route::post('artregister', [AuthController::class, 'artRegister'])->name('artreg
 Route::get('cusregister', [AuthController::class, 'customerRegister'])->name('cusregister');
 Route::post('cusregister', [AuthController::class, 'cusRegister'])->name('cusregister.store');
 
-<<<<<<< HEAD
 //Events
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
@@ -63,9 +59,6 @@ Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('eve
 //register na may database?
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 //login na may database (di gumagana login logic taga show lang sya ng website)
-=======
-//login
->>>>>>> 605a8c6d4dc607b459b154d497696a1f8d663bc4
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('verify/{token}', [AuthController::class, 'verify']);
 
