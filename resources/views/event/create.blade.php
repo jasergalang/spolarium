@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <div class="container py-6 space-y-5 bg-white">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         <!-- Event Title -->
@@ -48,7 +47,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Event Category -->
         <div class="p-6 bg-white hover:shadow-2xl rounded-2xl transition mx-5">
             <div class="text-lg font-bold mb-4 border-b">Event Category</div>
@@ -83,7 +81,6 @@
         <button id="createEventBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full">Create Event</button>
     </div>
 </div>
-
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

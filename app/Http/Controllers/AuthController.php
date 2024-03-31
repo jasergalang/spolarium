@@ -29,7 +29,7 @@ class AuthController extends Controller
         return view('user.artRegister');
     }
 
-    function cusRegister(Request $request)
+    public function cusRegister(Request $request)
     {
            $this->validateRegistration($request, 'customer');
            $validatedData = $request->only(['fname', 'lname', 'email', 'contact', 'password']);
@@ -140,16 +140,18 @@ class AuthController extends Controller
 
        return back()->withInput()->withErrors(['email' => 'Invalid email or password.']);
    }
-    public function verify($token)
+   public function verify($token)
+{
+    $user = User::where('remember_token', '=', $token)->first();
+    if(!empty($user))
     {
-        $user = User::where('remember_token', '=', $token)->first();
-        if(!empty($user))
-        {
-
-        }
-        else
-        {
-            abort(404);
-        }
+        // Redirect to login page with a message
+        return redirect()->route('login')->with('alert', 'Email Verified! Please Login');
     }
+    else
+    {
+        abort(404);
+    }
+}
+
 }
