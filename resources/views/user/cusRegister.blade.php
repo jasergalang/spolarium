@@ -1,9 +1,9 @@
 @extends('layout.layout')
 
 @section('content')
-
+<form method="POST" action="{{ route('cusregister.store') }}" enctype="multipart/form-data">
 {{-- register --}}
-<div class="py-10 bg-cover bg-center bg-no-repeat" style="background-image: url('/storage/background/bg3.jpg')">
+<div class="py-10 bg-cover bg-center bg-no-repeat" style="background-image: url('/storage/background/bg2.jpg')">
 
     <div class="max-w-5xl mx-auto bg-white shadow-md rounded-2xl px-6 py-7 overflow-hidden">
         <div class="ml-10 mt-5">
@@ -15,8 +15,7 @@
         </div>
 
             <div class="space-y-4">
-            <form method="POST" action="{{ route('register') }}">
-            @csrf
+
                 {{-- dinivide ko sa dalwa --}}
                 <div class="flex">
                     <div class="w-1/2 p-4">
@@ -79,65 +78,69 @@
 
                                 <!-- Add file uploads section -->
                                 <div class="mt-2">
-    <label class="block text-gray-900 mb-2">Upload Profile Picture</label>
-    <div class="flex items-center justify-center w-full">
-        <label for="profile-picture" class="flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-red-800">
-            <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                </svg>
-                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Allowed file types: SVG, PNG, JPG, GIF, PDF, DOCX (MAX. 800x400px)</p>
-            </div>
-            <input id="profile-picture" type="file" name="profile_picture" class="hidden" accept=".svg, .png, .jpg, .jpeg, .gif, .pdf, .docx" onchange="previewImage(event)" />
-        </label>
-    </div>
-    <div id="image-preview" class="hidden mt-4">
-        <div class="flex flex-col items-center justify-center">
-            <span class="text-lg text-gray-900 font-semibold mb-2">Your Profile Picture</span>
-            <img id="preview" src="#" alt="Image Preview" class="w-48 h-48 object-cover rounded-lg shadow-md">
-        </div>
-    </div>
-</div>
-
-<script>
-function previewImage(event) {
-    const preview = document.getElementById('preview');
-    const imagePreview = document.getElementById('image-preview');
-    preview.src = URL.createObjectURL(event.target.files[0]);
-    imagePreview.classList.remove('hidden');
-}
-</script>
+                                    <label class="block text-gray-900 mb-2">Upload Profile Picture</label>
+                                    <div class="flex items-center justify-center w-full">
+                                        <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-red-800">
+                                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                                </svg>
+                                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400">Allowed file types:  PNG, JPG (MAX. 800x400px)</p>
+                                            </div>
+                                            <input id="dropzone-file" type="file" name="image_path" class="hidden" accept=" .png, .jpg, .jpeg" />
+                                        </label>
+                                    </div>
+                                </div>
 
 
-
-
-
-
-                       <p class="text-center text-black mt-1 mb-3 text-xs font-extralight">Upload your preferred profile picture.</p>
-
+                        <p class="text-gray-900 mt-1 ml-3 text-xs font-extralight text-gray-200">
+                            Upload your preffered profile picture.
+                        </p>
 
                         </div>
                     </div>
                 </div>
 
         </div>
-       
+
+            @csrf
         <div class="flex justify-center items-center mt-5">
             <button type="submit" class="block w-96 py-2 text-center text-white bg-gray-700 rounded-md hover:bg-red-800 hover:text-white transition uppercase font-roboto font-medium">
                 Sign up
             </button>
         </div>
+    </form>
 
         <p class="mt-4 text-gray-500 text-center">
             Already got an Account?
             <a href="" class="text-primary text-semibold">Login Now</a>
         </p>
-        </form>
+
     </div>
 
 </div>
 @endsection
 
+@section('scripts')
+    @parent
 
+    @if(session('success'))
+        <script>
+            alert("{{ session('success') }}");
+        </script>
+    @endif
+    @if(session('error'))
+        <script>
+            alert("{{ session('error') }}");
+        </script>
+    @endif
+
+    @if ($errors->any())
+        <script>
+            var errorMessage = @json($errors->all());
+            alert(errorMessage.join('\n'));
+        </script>
+    @endif
+@endsection
 
