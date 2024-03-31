@@ -20,22 +20,22 @@ use App\Http\Controllers\VerificationController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('artwork', function () {
-    return view('artwork.create');
+
+Route::get('/artwork', function () {
+    return view('artwork.artworkdashboard');
 });
 
+// Route::get('/createevent', function () {
+//     return view('event.createevent');
+// });
 
-Route::get('/createevent', function () {
-    return view('event.createevent');
-});
+// Route::get('/event', function () {
+//     return view('event.eventdashboard');
+// });
 
-Route::get('/event', function () {
-    return view('event.eventdashboard');
-});
-
-Route::get('/manageevent', function () {
-    return view('event.manageevent');
-});
+// Route::get('/manageevent', function () {
+//     return view('event.manageevent');
+// });
 
 // Route::get('/mail', function () {
 //     Mail::to('eliso@gmail.com')->send(new Verification());
@@ -48,12 +48,12 @@ Route::get('cusregister', [AuthController::class, 'customerRegister'])->name('cu
 Route::post('cusregister', [AuthController::class, 'cusRegister'])->name('cusregister.store');
 
 //Events
-Route::get('/events', [EventController::class, 'index'])->name('events.index');
-Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
-Route::post('/events', [EventController::class, 'store'])->name('events.store');
-Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
-Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
-Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
+Route::get('/events', [EventController::class, 'index'])->name('event.index');
+Route::get('/events/create', [EventController::class, 'create'])->name('event.create');
+Route::post('/events', [EventController::class, 'store'])->name('event.store');
+Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('event.edit');
+Route::put('/events/{event}', [EventController::class, 'update'])->name('event.update');
+Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('event.destroy');
 
 
 

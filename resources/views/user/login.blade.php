@@ -65,6 +65,15 @@
             </div>
             </section>
 
+
+            <script>
+        // Check if there's an alert message
+        let alertMessage = "{{ session('alert') }}";
+        if (alertMessage) {
+            alert(alertMessage); // Display the alert message
+        }
+    </script>
+
 {{-- @include('layout.footer'); --}}
 @endsection
 
