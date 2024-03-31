@@ -1,7 +1,8 @@
 @extends('layout.layout')
 
 @section('content')
-
+<form method="POST" action="{{ route('event.store') }}" enctype="multipart/form-data">
+        @csrf
 <div class="container py-6 space-y-5 bg-white">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         <!-- Event Title -->
@@ -22,6 +23,17 @@
                 <div class="mb-6">
                     <label class="block text-sm font-semibold mb-2" for="eventDate">Date:</label>
                     <input type="date" id="eventDate" name="event_date" class="w-full px-3 py-2 border rounded-md">
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Time -->
+        <div class="p-6 bg-white hover:shadow-2xl rounded-2xl transition mx-5">
+            <div class="text-lg font-bold mb-4 border-b">Event Time</div>
+            <div class="mx-5 my-10">
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold mb-2" for="eventTime">Time:</label>
+                    <input type="time" id="eventTime" name="event_time" class="w-full px-3 py-2 border rounded-md">
                 </div>
             </div>
         </div>
@@ -81,35 +93,12 @@
         <button id="createEventBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full">Create Event</button>
     </div>
 </div>
+</form>
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- Bootstrap CSS -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-<script>
-    $(document).ready(function() {
-        $('#createEventBtn').click(function() {
-            // Fetch input values
-            var title = $('#eventTitle').val();
-            var date = $('#eventDate').val();
-            var description = $('#eventDescription').val();
-            var location = $('#eventLocation').val();
-            var category = $('#eventCategory').val();
-            var image = $('#eventImage').val();
-
-            // Perform form validation
-            if (title == '' || date == '' || description == '' || location == '' || category == '' || image == '') {
-                alert('Please fill in all fields.');
-                return false;
-            }
-
-            // Submit the form or process further as needed
-            // For demonstration purposes, let's just display the entered values
-            var eventData = 'Title: ' + title + '\nDate: ' + date + '\nDescription: ' + description + '\nLocation: ' + location + '\nCategory: ' + category + '\nImage: ' + image;
-            alert('Event data:\n' + eventData);
-        });
-    });
-</script>
 
 @endsection
