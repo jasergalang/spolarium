@@ -43,7 +43,7 @@ class AuthController extends Controller
                'email' => $validatedData['email'],
                'contact' => $validatedData['contact'],
                'password' => Hash::make($validatedData['password']),
-               'roles' => 'artist',
+               'roles' => 'customer',
                'status' => 'active',
                'image_path' => $imagePath,
            ];

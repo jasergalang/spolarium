@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('price');
             $table->string('desc');
             $table->string('category');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

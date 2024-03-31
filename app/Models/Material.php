@@ -10,7 +10,7 @@ class Material extends Model
     use SoftDeletes;
     use HasFactory;
     protected $dates = ['deleted_at'];
-
+    protected $fillable =  ['name', 'stock', 'desc', 'price', 'category'];
     public function image()
     {
         return $this->hasMany(MaterialImage::class, 'material_id');

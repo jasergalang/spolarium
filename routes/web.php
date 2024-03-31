@@ -26,7 +26,7 @@ Route::get('/artwork', function () {
     return view('artwork.artworkdashboard');
 });
 Route::get('art', function () {
-    return view('artwork.dashboard');
+    return view('material.create');
 });
 Route::get('testing', function () {
     return view('layout.testing');
