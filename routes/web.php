@@ -63,6 +63,7 @@ Route::get('/artworks/{id}', [ArtworkController::class, 'show'])->name('artwork.
 Route::get('/artworks/{id}/edit', [ArtworkController::class, 'edit'])->name('artwork.edit');
 Route::put('/artworks/{id}', [ArtworkController::class, 'update'])->name('artwork.update');
 Route::delete('/artworks/{id}', [ArtworkController::class, 'destroy'])->name('artwork.destroy');
+Route::put('/artwork/{id}/restore', [ArtworkController::class, 'restore'])->name('artwork.restore');
 
 //login na may database (di gumagana login logic taga show lang sya ng website)
 

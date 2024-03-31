@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\{
    Artwork, Artist, ArtImage};
    use Illuminate\Support\Facades\Auth;
+   use Illuminate\Database\Eloquent\SoftDeletes;
 class ArtworkController extends Controller
 {
     /**
@@ -14,11 +15,11 @@ class ArtworkController extends Controller
 
      public function dashboard()
      {
-        $userId = auth()->id();
-        $artist = Artist::where('user_id', $userId)->firstOrFail();
-        $artworks = $artist->artwork;
+         $userId = auth()->id();
+         $artist = Artist::where('user_id', $userId)->firstOrFail();
+         $artworks = $artist->artwork()->withTrashed()->get();
 
-        return view('artwork.dashboard', compact('artworks'));
+         return view('artwork.dashboard', compact('artworks'));
      }
     public function index()
     {
@@ -111,10 +112,23 @@ class ArtworkController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        Artwork::findOrFail($id)->delete();
+        $artwork = Artwork::findOrFail($id);
+        $artwork->delete();
 
-        return redirect()->route('artwork.dashboard')->with('success', 'Artwork deleted successfully.');
+        return redirect()->route('artwork.dashboard')->with('success', 'Artwork soft-deleted successfully.');
+    }
+
+
+
+    public function restore($id)
+    {
+        // Find the soft-deleted artwork by its ID
+        $artwork = Artwork::withTrashed()->findOrFail($id);
+
+        // Restore the soft-deleted artwork
+        $artwork->restore();
+        return redirect()->back()->with('success', 'Artwork restored successfully.');
     }
 }

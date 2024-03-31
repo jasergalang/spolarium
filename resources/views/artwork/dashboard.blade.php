@@ -27,11 +27,26 @@
                 <td class="text-center">
                     <button class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showArtworkModal{{ $artwork->id }}"><i class="fas fa-eye"></i> Show</button>
                     <a href="{{ route('artwork.edit', $artwork->id) }}" class="btn btn-sm btn-primary me-2"><i class="fas fa-edit"></i> Edit</a>
-                    <form action="{{ route('artwork.destroy', $artwork->id) }}" method="POST" class="d-inline">
+                    @if ($artwork->trashed())
+                    {{-- Restore button --}}
+                    <form method="POST" action="{{ route('artwork.restore', $artwork->id) }}">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="uppercase bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md">
+                            Restore Artwork
+                        </button>
+                    </form>
+                @else
+                    {{-- Delete button --}}
+                    <form method="POST" action="{{ route('artwork.destroy', $artwork->id) }}">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                        <button type="submit" class="uppercase bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md">
+                            Delete Artwork
+                        </button>
                     </form>
+                @endif
+
                 </td>
             </tr>
             @endforeach
