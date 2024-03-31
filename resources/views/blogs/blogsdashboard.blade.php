@@ -36,7 +36,7 @@
 
     <!-- Add Artwork Button -->
     <button class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#addBlogModal"><i class="fas fa-plus"></i> Add Blog</button>
-</div>
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

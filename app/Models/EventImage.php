@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class EventImages extends Model
+class EventImage extends Model
 {
     use HasFactory;
     protected $fillable = ['event_id', 'image_path'];
