@@ -46,7 +46,7 @@ class AuthController extends Controller
     // Get the relative file path
     $imagePath = str_replace('public/', 'storage/', $imagePath);
     }
-    
+
     // Insert the new user into the database
     $user = new User;
     $user->fname = $request->fname;
@@ -162,16 +162,18 @@ class AuthController extends Controller
 
        return back()->withInput()->withErrors(['email' => 'Invalid email or password.']);
    }
-    public function verify($token)
+   public function verify($token)
+{
+    $user = User::where('remember_token', '=', $token)->first();
+    if(!empty($user))
     {
-        $user = User::where('remember_token', '=', $token)->first();
-        if(!empty($user))
-        {
-
-        }
-        else
-        {
-            abort(404);
-        }
+        // Redirect to login page with a message
+        return redirect()->route('login')->with('alert', 'Email Verified! Please Login');
     }
+    else
+    {
+        abort(404);
+    }
+}
+
 }
