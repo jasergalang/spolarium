@@ -99,6 +99,8 @@
                         <p><strong>Event Category:</strong> {{ $event->category }}</p>
                         <p><strong>Event Image:</strong></p>
                         <div class="text-center">
+                            @if ($event->image)
+                                <img src="{{ asset('/storage/'. ($event->image->image_path)) }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px;">
                             @if ($event->image->isNotEmpty())
                             <img src="{{ asset('storage/' . $event->image->first()->image_path) }} alt="{{ $event->title }}" style="max-width: 300px; max-height: 300px;">
                             @else
@@ -153,7 +155,7 @@
 
     </script>
 
-    <script>
+    {{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Loop through each event to format time
         @foreach ($events as $event)
@@ -178,7 +180,7 @@
         @endforeach
     });
 
-    </script>
+    </script> --}}
 
     <script>
         function showDeleteConfirmationModal(eventId) {
