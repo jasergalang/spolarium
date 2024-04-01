@@ -117,7 +117,9 @@ Route::put('/user/{id}/restore', [UserController::class, 'restore'])->name('user
 
 //CartCrud
 Route::post('/cart/store', [CartController::class, 'store'])->name('cart.store');
-
+Route::get('/cart/index', [CartController::class, 'index'])->name('cart.index');
+Route::delete('/cart/{id}/material',  [CartController::class, 'destroyMaterial'])->name('cart.material.destroy');
+Route::delete('/cart/{id}/artwork',  [CartController::class, 'destroyArtwork'])->name('cart.artwork.destroy');
 //profile
 Route::get('/profile', [AuthController::class, 'show'])->name('user.profile');
 

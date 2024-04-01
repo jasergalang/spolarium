@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Material, Cart, Customer};
+use App\Models\{Material, Cart, Customer,Artwork};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,14 +11,33 @@ class CartController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+        public function index()
+        {
+            $userId = Auth::id();
+            $customer = Customer::where('user_id', $userId)->first();
+            $cart = $customer->cart;
 
-        $cart = auth()->user()->cart;
-        $totalPrice = $this->calculateTotalPrice($cart);
+            $materialQuantities = $cart->material()->pluck('cart_material.quantity', 'materials.id');
+            $artworkQuantities = $cart->artwork()->pluck('artwork_cart.quantity', 'artworks.id');
 
-        return view('cart.index', compact('cart', 'totalPrice'));
-    }
+            $totalPrice = 0;
+
+            foreach ($cart->material as $material) {
+                // Get the quantity of the current material
+                $quantity = $materialQuantities[$material->id] ?? 0;
+                $totalPrice += $material->price * $quantity;
+
+
+            foreach ($cart->artwork as $artwork) {
+                // Get the quantity of the current artwork
+                $quantity = $artworkQuantities[$artwork->id] ?? 0;
+                $totalPrice += $artwork->price * $quantity;
+
+            }
+            }
+            return view('cart.index', compact('cart', 'totalPrice', 'materialQuantities', 'artworkQuantities'));
+
+        }
 
     /**
      * Show the form for creating a new resource.
@@ -83,8 +102,31 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroyMaterial($id)
     {
-        //
+        $userId = Auth::id();
+        $customer = Customer::where('user_id', $userId)->first();
+        $cart = $customer->cart;
+
+        // Detach the specific material from the cart
+        $cart->material()->detach($id);
+
+        // Redirect back to the cart page after removal
+        return redirect()->route('cart.index')->with('success', 'Material removed from cart successfully.');
     }
+
+    public function destroyArtwork($id)
+    {
+        $userId = Auth::id();
+        $customer = Customer::where('user_id', $userId)->first();
+        $cart = $customer->cart;
+
+        // Detach the specific artwork from the cart
+        $cart->artwork()->detach($id);
+
+        // Redirect back to the cart page after removal
+        return redirect()->route('cart.index')->with('success', 'Artwork removed from cart successfully.');
+    }
+
+
 }
