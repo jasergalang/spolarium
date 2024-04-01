@@ -72,8 +72,8 @@ class MaterialController extends Controller
 
      public function edit($id)
      {
-         $material = Material::findOrFail($id);
-         return view('material.edit', compact('material'));
+        $material = Material::with('image')->findOrFail($id);
+        return view('material.edit', compact('material'));
      }
 
      public function update(Request $request, $id)
@@ -93,7 +93,21 @@ class MaterialController extends Controller
              'category' => $request->category,
              'stock' => $request->stock,
          ]);
+         if ($request->hasFile('images')) {
+            $uploadedImages = $request->file('images');
 
+            $existingImages = $artwork->image;
+
+            foreach ($uploadedImages as $key => $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('images'), $imageName);
+
+                $existingImage = $existingImages->get($key) ?? new MaterialImage();
+                $existingImage->image_path = $imageName;
+
+                $artwork->image()->save($existingImage);
+            }
+        }
          return redirect()->route('material.dashboard')->with('success', 'Artwork updated successfully.');
      }
     // /**

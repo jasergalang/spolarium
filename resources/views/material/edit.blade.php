@@ -83,10 +83,12 @@
     </label>
 </div>
 
-<div class="text-lg font-bold mb-5 my-10 mx-20 border-b">Selected Photos:</div>
+<div class="text-lg font-bold mb-5 my-10 mx-20 border-b">Existing Photos:</div>
 
-<div id="imageContainer" class="border rounded-2xl h-32 p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-
+<div id="imageContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    @foreach ($material->image as $images)
+    <img src="{{ asset('/images/' . $images->image_path) }}" alt="Artwork Image">
+    @endforeach
 </div>
 
         {{-- Go Button --}}
@@ -120,4 +122,4 @@
 @endif
 @endsection
 
-xz
+

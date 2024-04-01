@@ -7,6 +7,7 @@ use App\Models\{
    Artwork, Artist, ArtImage};
    use Illuminate\Support\Facades\Auth;
    use Illuminate\Database\Eloquent\SoftDeletes;
+   use Illuminate\Support\Facades\Storage;
 class ArtworkController extends Controller
 {
     /**
@@ -76,7 +77,7 @@ class ArtworkController extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
@@ -85,19 +86,22 @@ class ArtworkController extends Controller
 
      public function edit($id)
      {
-         $artwork = Artwork::findOrFail($id);
-         return view('artwork.edit', compact('artwork'));
+        $artwork = Artwork::with('image')->findOrFail($id);
+        return view('artwork.edit', compact('artwork'));
      }
+
+
 
      public function update(Request $request, $id)
      {
-        $request->validate([
-            'artwork_name' => 'nullable|string',
-            'art_price' => 'nullable|numeric',
-            'art_description' => 'nullable|string',
-            'art_category' => 'nullable|string',
-            'art_size' => 'nullable|string',
+         $request->validate([
+             'artwork_name' => 'nullable|string',
+             'art_price' => 'nullable|numeric',
+             'art_description' => 'nullable|string',
+             'art_category' => 'nullable|string',
+             'art_size' => 'nullable|string',
          ]);
+
          $artwork = Artwork::findOrFail($id);
          $artwork->update([
              'name' => $request->artwork_name,
@@ -107,8 +111,26 @@ class ArtworkController extends Controller
              'size' => $request->art_size,
          ]);
 
+         if ($request->hasFile('images')) {
+            $uploadedImages = $request->file('images');
+
+            $existingImages = $artwork->image;
+
+            foreach ($uploadedImages as $key => $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('images'), $imageName);
+
+                $existingImage = $existingImages->get($key) ?? new ArtImage();
+                $existingImage->image_path = $imageName;
+
+                $artwork->image()->save($existingImage);
+            }
+        }
+
+
          return redirect()->route('artwork.dashboard')->with('success', 'Artwork updated successfully.');
      }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -120,14 +142,9 @@ class ArtworkController extends Controller
         return redirect()->route('artwork.dashboard')->with('success', 'Artwork soft-deleted successfully.');
     }
 
-
-
     public function restore($id)
     {
-        // Find the soft-deleted artwork by its ID
         $artwork = Artwork::withTrashed()->findOrFail($id);
-
-        // Restore the soft-deleted artwork
         $artwork->restore();
         return redirect()->back()->with('success', 'Artwork restored successfully.');
     }

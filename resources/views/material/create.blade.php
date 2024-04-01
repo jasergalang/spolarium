@@ -82,10 +82,11 @@
     </label>
 </div>
 
+
 <div class="text-lg font-bold mb-5 my-10 mx-20 border-b">Selected Photos:</div>
 
-<div id="imageContainer" class="border rounded-2xl h-32 p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-
+<div id="imageContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <!-- Images will be dynamically inserted here -->
 </div>
 
         {{-- Go Button --}}
@@ -98,24 +99,55 @@
 </div>
 @endsection
 @section('scripts')
+
 @parent
+<script>
+    // Function to handle file input change event
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        var files = e.target.files; // Get the selected files
+        var imageContainer = document.getElementById('imageContainer'); // Get the image container
+
+        // Clear previous contents of the container
+        imageContainer.innerHTML = '';
+
+        // Loop through each selected file
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var reader = new FileReader(); // Create a FileReader object
+
+            // Closure to capture the file information
+            reader.onload = (function(file) {
+                return function(e) {
+                    // Create an image element
+                    var imgElement = document.createElement('img');
+                    imgElement.classList.add('w-full', 'h-auto');
+                    imgElement.src = e.target.result; // Set the image source to the FileReader result
+                    // Append the image element to the container
+                    imageContainer.appendChild(imgElement);
+                };
+            })(file);
+
+            // Read the selected file as a Data URL
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 
 @if(session('success'))
-    <script>
-        alert("{{ session('success') }}");
-    </script>
+<script>
+    alert("{{ session('success') }}");
+</script>
 @endif
 @if(session('error'))
-    <script>
-        alert("{{ session('error') }}");
-    </script>
+<script>
+    alert("{{ session('error') }}");
+</script>
 @endif
 
 @if ($errors->any())
-    <script>
-        var errorMessage = @json($errors->all());
-        alert(errorMessage.join('\n'));
-    </script>
+<script>
+    var errorMessage = @json($errors->all());
+    alert(errorMessage.join('\n'));
+</script>
 @endif
 @endsection
-

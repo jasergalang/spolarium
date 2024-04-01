@@ -66,14 +66,8 @@
         </div>
 
         <div class="p-6 pt-5 bg-white hover:scale-105 hover:shadow-2xl rounded-2xl transition mx-5">
-            <div class="text-lg font-bold mb-4 my-10 mx-5 border-b">Dimensions</div>
-            {{-- Dimensions checkboxes --}}
-            <div id="dimensionOptions" class="col-span-1 bg-white px-4 pb-2 overflow-hidden" style="display:none;">
-                <div class="text-md font-semibold my-3">Dimensions Options</div>
-                <div class="flex flex-col space-y-2 mx-5" id="dimensionCheckboxes">
-                    {{-- Add checkboxes with appropriate names --}}
-                </div>
-            </div>
+
+
         </div>
 
         <!-- Selected Photos -->
@@ -87,10 +81,12 @@
             </label>
         </div>
 
-        <div class="text-lg font-bold mb-5 my-10 mx-20 border-b">Selected Photos:</div>
+        <div class="text-lg font-bold mb-5 my-10 mx-20 border-b">Existing Photos:</div>
 
-        <div id="imageContainer" class="border rounded-2xl h-32 p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {{-- Display selected photos here --}}
+        <div id="imageContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            @foreach ($artwork->image as $images)
+            <img src="{{ asset('/images/' . $images->image_path) }}" alt="Artwork Image">
+            @endforeach
         </div>
 
         <!-- Update Button -->
