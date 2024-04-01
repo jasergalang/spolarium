@@ -100,7 +100,7 @@
                         <p><strong>Event Image:</strong></p>
                         <div class="text-center">
                             @if ($event->image)
-                                <img src="{{ asset($event->image->image_path) }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px;">
+                                <img src="{{ asset('/storage/'. ($event->image->image_path)) }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px;">
                             @else
                                 No Image
                             @endif
