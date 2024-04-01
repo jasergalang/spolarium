@@ -11,7 +11,7 @@ class Event extends Model
     Use HasFactory;
     use SoftDeletes;
     protected $dates = ['deleted_at'];
-    protected $fillable = ['title', 'date','time', 'description', 'location', 'category',];
+    protected $fillable = ['title', 'date','time', 'description', 'location', 'category'];
     public function image()
     {
         return $this->hasMany(EventImage::class, 'event_id');

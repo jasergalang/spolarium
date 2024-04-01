@@ -30,8 +30,8 @@
                             <td>{{ $event->location }}</td>
                             <td>{{ $event->category }}</td>
                             <td>
-                                @if ($event->image)
-                                <img src="{{ asset('/storage/'. ($event->image->image_path)) }}" alt="{{ $event->title }}" style="max-width: 300px; max-height: 300px;">
+                                @if ($event->image->isNotEmpty())
+                                <img src="{{ asset('/storage/event_images/public/event_images' . $event->image->first()->image_path) }} alt="{{ $event->title }}" style="max-width: 300px; max-height: 300px;">
                                 @else
                                     No Image
                                 @endif
@@ -99,8 +99,8 @@
                         <p><strong>Event Category:</strong> {{ $event->category }}</p>
                         <p><strong>Event Image:</strong></p>
                         <div class="text-center">
-                            @if ($event->image)
-                                <img src="{{ asset($event->image->image_path) }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px;">
+                            @if ($event->image->isNotEmpty())
+                            <img src="{{ asset('storage/' . $event->image->first()->image_path) }} alt="{{ $event->title }}" style="max-width: 300px; max-height: 300px;">
                             @else
                                 No Image
                             @endif
@@ -150,7 +150,7 @@
                 document.getElementById('eventTimeFormatted{{ $event->id }}').textContent = formattedTime{{ $event->id }};
             @endforeach
         });
-        
+
     </script>
 
     <script>

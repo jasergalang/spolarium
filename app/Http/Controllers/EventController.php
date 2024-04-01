@@ -43,38 +43,36 @@ class EventController extends Controller
             'event_location' => 'required',
             'event_category' => 'required',
             'event_time' => 'required', // Validation for event time
-            'event_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validation for image file
+            'images*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validation for image file
         ]);
-
-        $userId = Auth::id();
-
-        // Find the artist record based on the user ID
-        $event = Event::where('user_id', $userId)->firstOrFail();
 
         // Create the artwork
         $event = new Event();
         $event->title = $request->event_title;
         $event->date = $request->event_date;
-        $event->price = $request->event_description;
-        $event->desc = $request->event_location;
+        $event->description = $request->event_description;
+        $event->location = $request->event_location;
         $event->category = $request->event_category;
-        $event->size = $request->event_time;
-        $event->status = "available";
+        $event->time = $request->event_time;
+
 
         $event->save();
 
-        foreach ($request->file('event_image') as $image) {
-            // Store the image file
+        foreach ($request->file('images') as $image) {
+            // Store the image file in the storage directory and get its path
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images'), $imageName);
+            $imagePath = $image->storeAs('public/event_images', $imageName);
 
-            // Create a new ArtImage record
+            // Create a new EventImage record
             $eventImage = new EventImage();
-            $eventImage->artwork_id = $event->id; // Associate the image with the artwork
-            $eventImage->image_path = $imageName;
+            $eventImage->event_id = $event->id; // Associate the image with the event
+            $eventImage->image_path = $imageName; // Store the file name without the directory prefix
             $eventImage->save();
         }
-        return redirect()->route('artwork.dashboard')->with('success', 'Artwork created successfully.');
+
+
+
+        return redirect()->route('event.index')->with('success', 'Artwork created successfully.');
     }
 
 
