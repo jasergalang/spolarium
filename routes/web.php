@@ -9,6 +9,7 @@ use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\VerificationController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,11 +46,21 @@ Route::get('/home', function () {
     return view('home');
 });
 
+Route::get('/cart', function () {
+    return view('cart.cartform');
+});
 
 Route::get('/showcase', function () {
     return view('artworkshowcase');
 });
 
+Route::get('/checkout', function () {
+    return view('cart.checkout');
+});
+
+Route::get('/charts', function () {
+    return view('charts.charts');
+});
 // Route::get('/mail', function () {
 //     Mail::to('eliso@gmail.com')->send(new Verification());
 // });
@@ -99,6 +110,7 @@ Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update')
 Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 Route::put('/user/{id}/restore', [UserController::class, 'restore'])->name('user.restore');
 
+
 //profile
 Route::get('/profile', [AuthController::class, 'show'])->name('user.profile');
 
@@ -128,3 +140,12 @@ Route::delete('/destroy/{id}', [BlogController::class, 'destroy'])->name('blogs.
 Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
 Route::get('/blogs/{id}', [BlogController::class, 'update'])->name('blogs.update');
 // Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->name('blogs.destroy');
+
+
+//charts
+Route::get('/chart', function () {
+    $customerCount = User::where('roles', 'customer')->count();
+    $artistCount = User::where('roles', 'artist')->count();
+    
+    return view('charts.charts', compact('customerCount', 'artistCount'));
+});

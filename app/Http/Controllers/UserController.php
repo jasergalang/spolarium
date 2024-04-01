@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use ConsoleTVs\Charts\Facades\Charts;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -88,4 +89,6 @@ class UserController extends Controller
         $user->restore();
         return redirect()->back()->with('success', 'User restored successfully');
     }
+
+
 }
