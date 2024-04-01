@@ -21,4 +21,8 @@ class Artwork extends Model
     {
         return $this->hasMany(ArtImage::class, 'artwork_id');
     }
+    public function cart(){
+
+        return $this->belongsToMany(Cart::class, 'cart_artworks', 'cart_id', 'artwork_id');
+    }
 }

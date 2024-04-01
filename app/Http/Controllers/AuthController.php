@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\{
     User, Artist, Customer};
-use App\Mail\RegisterUser;
+    use App\Mail\RegisterUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-      public function login()
+    public function login()
     {
         return view('user.login');
     }
@@ -57,7 +57,7 @@ class AuthController extends Controller
            $user->sendEmailVerificationNotification();
 
            return redirect(route('verification.send'))->with("success", "Registration Successful!!");
-       }
+    }
     function artRegister(Request $request)
     {
        $this->validateRegistration($request, 'artist');

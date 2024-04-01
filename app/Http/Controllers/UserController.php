@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -11,28 +12,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::withTrashed()->get();
+        return view('user.index', compact('users'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function storeArtist(Request $request)
-    {
-        //
-    }
-    public function storeCustomer(Request $request)
-    {
-        //
-    }
     /**
      * Display the specified resource.
      */
@@ -44,24 +30,62 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('user.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'fname' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',
+            'contact' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'nullable|string|min:8', // Password is now nullable
+            'new_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Image is now nullable
+        ]);
+
+        $user = User::findOrFail($id);
+
+        $user->fname = $request->fname;
+        $user->lname = $request->lname;
+        $user->contact = $request->contact;
+        $user->email = $request->email;
+
+        // Update password only if provided
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+
+        // Update image only if provided
+        if ($request->hasFile('new_image')) {
+            $image = $request->file('new_image');
+            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/images', $imageName); // Store the image in storage
+            $user->image_path = 'images/' . $imageName; // Store image path in database
+        }
+
+        $user->save();
+        return redirect()->route('user.index')->with('success', 'User information updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->back()->with('success', 'User deleted successfully');
+    }
+
+    public function restore($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->restore();
+        return redirect()->back()->with('success', 'User restored successfully');
     }
 }

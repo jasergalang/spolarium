@@ -22,6 +22,14 @@ class ArtworkController extends Controller
 
          return view('artwork.dashboard', compact('artworks'));
      }
+     public function trashed()
+     {
+         $userId = auth()->id();
+         $artist = Artist::where('user_id', $userId)->firstOrFail();
+         $artworks = $artist->artwork()->withTrashed()->get();
+
+         return view('artwork.dashboard', compact('artworks'));
+     }
     public function index()
     {
         //

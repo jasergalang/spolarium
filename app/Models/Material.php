@@ -15,4 +15,8 @@ class Material extends Model
     {
         return $this->hasMany(MaterialImage::class, 'material_id');
     }
+    public function cart(){
+
+        return $this->belongsToMany(Cart::class, 'cart_materials', 'cart_id', 'materialc_id');
+    }
 }

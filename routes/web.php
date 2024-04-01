@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ArtworkController;
-use App\Http\Controllers\VerificationController;
-use App\Http\Controllers\BlogController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,8 @@ Route::get('cusregister', [AuthController::class, 'customerRegister'])->name('cu
 Route::post('cusregister', [AuthController::class, 'cusRegister'])->name('cusregister.store');
 
 //Events
-Route::get('/events', [EventController::class, 'index'])->name('event.index');
+Route::get('/events/dashboard', [EventController::class, 'dashboard'])->name('event.dashboard');
+Route::get('/events/index', [EventController::class, 'index'])->name('event.index');
 Route::get('/events/create', [EventController::class, 'create'])->name('event.create');
 Route::post('/events', [EventController::class, 'store'])->name('event.store');
 Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('event.edit');
@@ -77,6 +79,7 @@ Route::get('/artworks/{id}/edit', [ArtworkController::class, 'edit'])->name('art
 Route::put('/artworks/{id}', [ArtworkController::class, 'update'])->name('artwork.update');
 Route::delete('/artworks/{id}', [ArtworkController::class, 'destroy'])->name('artwork.destroy');
 Route::put('/artwork/{id}/restore', [ArtworkController::class, 'restore'])->name('artwork.restore');
+Route::get('/artwork/trashed', [ArtworkController::class, 'trashed'])->name('artwork.trashed');
 
 //MaterialCrud
 Route::get('/material/dashboard', [MaterialController::class, 'dashboard'])->name('material.dashboard');
@@ -87,6 +90,14 @@ Route::get('/material/{id}/edit', [MaterialController::class, 'edit'])->name('ma
 Route::put('/material/{id}', [MaterialController::class, 'update'])->name('material.update');
 Route::delete('/material/{id}', [MaterialController::class, 'destroy'])->name('material.destroy');
 Route::put('/material/{id}/restore', [MaterialController::class, 'restore'])->name('material.restore');
+
+//UserCrud
+Route::get('/user/index', [UserController::class, 'index'])->name('user.index');
+Route::get('/user/{id}', [UserController::class, 'show'])->name('user.show');
+Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
+Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+Route::put('/user/{id}/restore', [UserController::class, 'restore'])->name('user.restore');
 
 //profile
 Route::get('/profile', [AuthController::class, 'show'])->name('user.profile');
