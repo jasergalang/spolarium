@@ -56,8 +56,10 @@
              <div class="flex items-center space-x-6 capitalize">
                  <a href=""class="text-gray-200 hover:underline hover:text-white transition">Home</a>
                  <a href="" class="text-gray-200 hover:underline hover:text-white transition">Artworks</a>
-                 <a href="" class="text-gray-200 hover:underline hover:text-white transition">Purchases</a>
+                 <a href="" class="text-gray-200 hover:underline hover:text-white transition">Artworks</a>
+                 <a href="" class="text-gray-200 hover:underline hover:text-white transition">Materials</a>
                  <a href="" class="text-gray-200 hover:underline hover:text-white transition">Blogs</a>
+                 <a href="" class="text-gray-200 hover:underline hover:text-white transition">Events</a>
                  <a href="" class="text-gray-200 hover:underline hover:text-white transition">Profile</a>
              </div>
              {{-- login and register --}}
