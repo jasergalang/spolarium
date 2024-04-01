@@ -102,16 +102,6 @@ Route::put('/material/{id}', [MaterialController::class, 'update'])->name('mater
 Route::delete('/material/{id}', [MaterialController::class, 'destroy'])->name('material.destroy');
 Route::put('/material/{id}/restore', [MaterialController::class, 'restore'])->name('material.restore');
 
-
-//BlogsCrud
-Route::get('/blog/dashboard', [BlogController::class, 'dashboard'])->name('blogs.index');
-Route::get('/blog/create', [BlogController::class, 'create'])->name('blogs.create');
-Route::post('/blog', [BlogController::class, 'store'])->name('blogs.store');
-Route::get('/blow/{id}', [BlogController::class, 'show'])->name('blogs.show');
-Route::get('/blog/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
-Route::get('/blog/{id}', [BlogController::class, 'update'])->name('blogs.update');
-Route::delete('/blog/{id}', [BlogController::class, 'destroy'])->name('blogs.destroy');
-
 //UserCrud
 Route::get('/user/index', [UserController::class, 'index'])->name('user.index');
 Route::get('/user/{id}', [UserController::class, 'show'])->name('user.show');
@@ -138,7 +128,18 @@ Route::get('/email/verify', [VerificationController::class, 'sendVerificationEma
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
 
 
-
+//blogs route pare
+// Route to display the blogs dashboard
+Route::get('/blogsdashboard', [BlogController::class, 'dashboard'])->name('blogsdashboard');
+Route::get('/createblogs', [BlogController::class, 'create'])->name('blogs.create');
+Route::post('/createblogs', [BlogController::class, 'store'])->name('blogs.store');
+Route::get('/show/{id}', [BlogController::class, 'show'])->name('blogs.show');
+// Route::get('/edit/{id}', [BlogController::class, 'edit'])->name('blogs.edit');
+Route::delete('/destroy/{id}', [BlogController::class, 'destroy'])->name('blogs.destroy');
+// Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
+Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
+Route::get('/blogs/{id}', [BlogController::class, 'update'])->name('blogs.update');
+// Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->name('blogs.destroy');
 
 
 //charts
