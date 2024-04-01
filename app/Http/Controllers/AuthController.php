@@ -85,7 +85,7 @@ class AuthController extends Controller
 
        $artist = new Artist(['user_id' => $user->id]);
        $artist->save();
-
+       $user->sendEmailVerificationNotification();
        return redirect(route('login'))->with("success", "Registration Successful!!");
    }
 
