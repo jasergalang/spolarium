@@ -62,7 +62,7 @@ class EventController extends Controller
         foreach ($request->file('images') as $image) {
             // Store the image file in the storage directory and get its path
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $imagePath = $image->storeAs('public/event_images', $imageName);
+            $image->move(public_path('images'), $imageName);
 
             // Create a new EventImage record
             $eventImage = new EventImage();
@@ -133,7 +133,7 @@ class EventController extends Controller
         // Delete associated event image record
         if ($event->image) {
             // Delete image file
-            Storage::delete($event->image->image_path);
+            Storage::delete('images/'. $event->image->image_path);
             // Delete event image record
             $event->image->delete();
         }

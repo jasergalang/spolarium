@@ -13,7 +13,11 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+
+        $cart = auth()->user()->cart;
+        $totalPrice = $this->calculateTotalPrice($cart);
+
+        return view('cart.index', compact('cart', 'totalPrice'));
     }
 
     /**

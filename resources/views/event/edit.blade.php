@@ -46,7 +46,7 @@
                     <div class="mb-6">
                         <label for="existing_image" class="block text-gray-700 font-bold mb-2">Existing Image</label>
                         @if ($event->image)
-                        <img src="{{ asset($event->image->image_path) }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px;">
+                        <img src="{{ asset('images/'. ($event->image->first()->image_path))  }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px;">
                         @else
                         <p>No Image</p>
                         @endif

@@ -30,8 +30,8 @@
                                 <td>{{ $event->location }}</td>
                                 <td>{{ $event->category }}</td>
                                 <td>
-                                    @if ($event->image)
-                                    <img src="{{ asset('/storage/'. ($event->image->image_path)) }}" alt="{{ $event->title }}" style="max-width: 300px; max-height: 300px;">
+                                    @if ($event->image->isNotEmpty())
+                                    <img src="{{ asset('images/'. ($event->image->first()->image_path)) }}" alt="{{ $event->title }}" style="max-width: 300px; max-height: 300px;">
                                     @else
                                         No Image
                                     @endif
@@ -76,9 +76,9 @@
                         <p><strong>Event Image:</strong></p>
                         <div class="text-center">
                             @if ($event->image)
-                                <img src="{{ asset('/storage/'. ($event->image->image_path)) }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px;">
-                            @if ($event->image->isNotEmpty())
-                            <img src="{{ asset('storage/' . $event->image->first()->image_path) }} alt="{{ $event->title }}" style="max-width: 300px; max-height: 300px;">
+                                <img src="{{ asset('images/'.($event->image->first()->image_path))  }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px;">
+                            @elseif ($event->image->isNotEmpty())
+                            <img src="{{ asset('images/' . $event->image->first()->image_path) }} alt="{{ $event->title }}" style="max-width: 300px; max-height: 300px;">
                             @else
                                 No Image
                             @endif
@@ -114,7 +114,7 @@
                             <p><strong>Event Image:</strong></p>
                             <div class="text-center">
                                 @if ($event->image)
-                                    <img src="{{ asset('/storage/'. ($event->image->image_path)) }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px;">
+                                    <img src="{{ asset('images/'. ($event->image->first()->image_path))  }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px;">
                                 @else
                                     No Image
                                 @endif
@@ -140,32 +140,7 @@
             });
         </script>
 
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-                // Loop through each event to format time
-                @foreach ($events as $event)
-                    var eventTime{{ $event->id }} = "{{ $event->time }}"; // Assuming $event->time contains the time value from the database
 
-                    // Split the time into hours and minutes
-                    var timeParts{{ $event->id }} = eventTime{{ $event->id }}.split(':');
-                    var hours{{ $event->id }} = parseInt(timeParts{{ $event->id }}[0], 10);
-                    var minutes{{ $event->id }} = timeParts{{ $event->id }}[1];
-
-                    // Determine AM or PM and convert hours to 12-hour format
-                    var period{{ $event->id }} = (hours{{ $event->id }} >= 12) ? 'PM' : 'AM';
-                    hours{{ $event->id }} = (hours{{ $event->id }} % 12 === 0) ? 12 : hours{{ $event->id }} % 12;
-
-                    // Format hours and minutes
-                    var formattedHours{{ $event->id }} = (hours{{ $event->id }} < 10 ? '0' : '') + hours{{ $event->id }};
-                    var formattedMinutes{{ $event->id }} = (minutes{{ $event->id }} < 10 ? '0' : '') + minutes{{ $event->id }};
-
-                    // Display the formatted time
-                    var formattedTime{{ $event->id }} = formattedHours{{ $event->id }} + ':' + formattedMinutes{{ $event->id }} + ' ' + period{{ $event->id }};
-                    document.getElementById('eventTimeFormatted{{ $event->id }}').textContent = formattedTime{{ $event->id }};
-                @endforeach
-            });
-
-        </script>
 
         <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -191,7 +166,6 @@
                 document.getElementById('eventTimeFormattedForModal{{ $event->id }}').textContent = formattedTime{{ $event->id }};
             @endforeach
         });
-<<<<<<< HEAD
 
         </script>
 
@@ -204,44 +178,3 @@
             }
         </script>
     @endsection
-=======
-
-    </script>
-
-    {{-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Loop through each event to format time
-        @foreach ($events as $event)
-            var eventTime{{ $event->id }} = "{{ $event->time }}"; // Assuming $event->time contains the time value from the database
-
-            // Split the time into hours and minutes
-            var timeParts{{ $event->id }} = eventTime{{ $event->id }}.split(':');
-            var hours{{ $event->id }} = parseInt(timeParts{{ $event->id }}[0], 10);
-            var minutes{{ $event->id }} = timeParts{{ $event->id }}[1];
-
-            // Determine AM or PM and convert hours to 12-hour format
-            var period{{ $event->id }} = (hours{{ $event->id }} >= 12) ? 'PM' : 'AM';
-            hours{{ $event->id }} = (hours{{ $event->id }} % 12 === 0) ? 12 : hours{{ $event->id }} % 12;
-
-            // Format hours and minutes
-            var formattedHours{{ $event->id }} = (hours{{ $event->id }} < 10 ? '0' : '') + hours{{ $event->id }};
-            var formattedMinutes{{ $event->id }} = (minutes{{ $event->id }} < 10 ? '0' : '') + minutes{{ $event->id }};
-
-            // Display the formatted time
-            var formattedTime{{ $event->id }} = formattedHours{{ $event->id }} + ':' + formattedMinutes{{ $event->id }} + ' ' + period{{ $event->id }};
-            document.getElementById('eventTimeFormattedForModal{{ $event->id }}').textContent = formattedTime{{ $event->id }};
-        @endforeach
-    });
-
-    </script> --}}
-
-    <script>
-        function showDeleteConfirmationModal(eventId) {
-            var form = document.getElementById('deleteEventForm');
-            form.action = "{{ url('events') }}/" + eventId;
-            var modal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
-            modal.show();
-        }
-    </script>
-@endsection
->>>>>>> 76e586429264353e7ed66e25f470bd35257c7a11

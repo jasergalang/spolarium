@@ -81,7 +81,7 @@
       <!-- Event Image Upload -->
 <div class="flex items-center justify-center mt-10 text-center">
     <label for="fileInput" class="flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-        <input type="file" accept=".png, .jpg" id="fileInput" name="event_image[]" style="display: none;" multiple accept="image/*">
+        <input type="file" accept=".png, .jpg" id="fileInput" name="images[]" style="display: none;" multiple accept="image/*">
         <i class="bg-transparent text-gray-500 hover:text-red-500 font-bold h-24 w-full py-2 px-4 rounded-xl flex justify-center items-center">
             <i class="fa-solid fa-image mr-2"></i>
             Select Images
