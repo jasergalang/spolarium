@@ -1,6 +1,8 @@
 @extends('layout.layout')
 
 @section('content')
+@include('layout.artHeader')
+@include('layout.artNav')
 <form method="POST" action="{{ route('event.store') }}" enctype="multipart/form-data">
         @csrf
 <div class="container py-6 space-y-5 bg-white">
@@ -102,3 +104,25 @@
 
 
 @endsection
+@section('scripts')
+    @parent
+
+    @if(session('success'))
+        <script>
+            alert("{{ session('success') }}");
+        </script>
+    @endif
+    @if(session('error'))
+        <script>
+            alert("{{ session('error') }}");
+        </script>
+    @endif
+
+    @if ($errors->any())
+        <script>
+            var errorMessage = @json($errors->all());
+            alert(errorMessage.join('\n'));
+        </script>
+    @endif
+@endsection
+

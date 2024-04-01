@@ -34,7 +34,7 @@ Route::get('testing', function () {
     return view('layout.testing');
 });
 Route::get('/event', function () {
-    return view('event.eventdashboard');
+    return view('event.dashboard');
 });
 Route::get('/manageevent', function () {
     return view('event.manageevent');
@@ -57,6 +57,7 @@ Route::post('/events', [EventController::class, 'store'])->name('event.store');
 Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('event.edit');
 Route::put('/events/{event}', [EventController::class, 'update'])->name('event.update');
 Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('event.destroy');
+Route::put('events/{id}/restore', [EventController::class, 'restore'])->name('event.restore');
 
 //ArtworkCrud
 Route::get('/artwork/dashboard', [ArtworkController::class, 'dashboard'])->name('artwork.dashboard');
