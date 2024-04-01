@@ -97,6 +97,10 @@
 </div>
 {{-- End of Browse Art by Categories --}}
 
+{{-- Artworks Section --}}
+<div class="container mx-auto text-center my-10">
+    <h2 class="text-4xl font-bold text-gray-800">Artworks</h2>
+</div>
 
 <div class="container mb-10 grid grid-cols-3 gap-3">
     <!-- Artwork card 1 -->
@@ -128,9 +132,8 @@
     </div>
     <!-- End of artwork card 1 -->
 
-
-      <!-- Artwork card  -->
-      <div class="bg-white shadow rounded overflow-hidden group">
+    <!-- Artwork card 2 -->
+    <div class="bg-white shadow rounded overflow-hidden group">
         <div class="relative">
             <!-- Artwork image -->
             <img src="artwork_image.jpg" alt="Artwork Image" class="w-96 h-52">
@@ -156,22 +159,140 @@
             </button>
         </div>
     </div>
-    <!-- End of artwork card 1 -->
+    <!-- End of artwork card 2 -->
 
-
-    
-        
-
-     
-
-       
+    <!-- Artwork card 3 -->
+    <div class="bg-white shadow rounded overflow-hidden group">
+        <div class="relative">
+            <!-- Artwork image -->
+            <img src="artwork_image.jpg" alt="Artwork Image" class="w-96 h-52">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
+                <!-- Additional HTML or Blade code -->
+            </div>
+        </div>
+        <!-- Artwork details -->
+        <div class="pt-4 pb-3 px-4">
+            <a href="#">
+                <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">Artwork Title</h4>
+            </a>
+            <div class="flex items-baseline mb-1 space-x-2 font-roboto">
+                <p class="text-xl text-primary font-semibold">
+                    Price: $1000
+                    <br>
+                    Artist: John Doe
+                </p>
+            </div>
+            <!-- Button to view artwork (opens modal) -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                View Artwork
+            </button>
+        </div>
     </div>
-    {{-- End of artwork card --}}
-    {{-- End of artwork cards --}}
+    <!-- End of artwork card 3 -->
 </div>
-{{-- End of Artistic Property Showcase --}}
+{{-- End of Artworks Section --}}
+
 
 @include('showmodal')
+{{-- End of Artistic Property Showcase --}}
+
+{{-- Materials Section --}}
+<div class="container mx-auto text-center my-10">
+    <h2 class="text-4xl font-bold text-gray-800">Materials</h2>
+</div>
+
+<div class="container mb-10 grid grid-cols-3 gap-3">
+    <!-- Material card 1 -->
+    <div class="bg-white shadow rounded overflow-hidden group">
+        <div class="relative">
+            <!-- Material image -->
+            <img src="material_image.jpg" alt="Material Image" class="w-96 h-52">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
+                <!-- Additional HTML or Blade code -->
+            </div>
+        </div>
+        <!-- Material details -->
+        <div class="pt-4 pb-3 px-4">
+            <a href="#">
+                <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">Material Name</h4>
+            </a>
+            <div class="flex items-baseline mb-1 space-x-2 font-roboto">
+                <p class="text-xl text-primary font-semibold">
+                    Price: $10 per meter
+                    <br>
+                    Supplier: ABC Company
+                </p>
+            </div>
+            <!-- Button to view material details (opens modal) -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#materialModal">
+                View Material
+            </button>
+        </div>
+    </div>
+    <!-- End of material card 1 -->
+
+    <!-- Material card 2 -->
+    <div class="bg-white shadow rounded overflow-hidden group">
+        <div class="relative">
+            <!-- Material image -->
+            <img src="material_image.jpg" alt="Material Image" class="w-96 h-52">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
+                <!-- Additional HTML or Blade code -->
+            </div>
+        </div>
+        <!-- Material details -->
+        <div class="pt-4 pb-3 px-4">
+            <a href="#">
+                <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">Material Name</h4>
+            </a>
+            <div class="flex items-baseline mb-1 space-x-2 font-roboto">
+                <p class="text-xl text-primary font-semibold">
+                    Price: $8 per meter
+                    <br>
+                    Supplier: XYZ Inc.
+                </p>
+            </div>
+            <!-- Button to view material details (opens modal) -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#materialModal">
+                View Material
+            </button>
+        </div>
+    </div>
+    <!-- End of material card 2 -->
+
+    <!-- Material card 3 -->
+    <div class="bg-white shadow rounded overflow-hidden group">
+        <div class="relative">
+            <!-- Material image -->
+            <img src="material_image.jpg" alt="Material Image" class="w-96 h-52">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
+                <!-- Additional HTML or Blade code -->
+            </div>
+        </div>
+        <!-- Material details -->
+        <div class="pt-4 pb-3 px-4">
+            <a href="#">
+                <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">Material Name</h4>
+            </a>
+            <div class="flex items-baseline mb-1 space-x-2 font-roboto">
+                <p class="text-xl text-primary font-semibold">
+                    Price: $12 per meter
+                    <br>
+                    Supplier: DEF Corporation
+                </p>
+            </div>
+            <!-- Button to view material details (opens modal) -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#materialModal">
+                View Material
+            </button>
+        </div>
+    </div>
+    <!-- End of material card 3 -->
+</div>
+
+{{-- End of Materials Section --}}
+@include('showmaterialmodal')
+
 
 
 {{-- Art-related Q&A --}}
