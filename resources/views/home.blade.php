@@ -171,42 +171,7 @@
 </div>
 {{-- End of Artistic Property Showcase --}}
 
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Artwork Title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img src="artwork_image.jpg" alt="Artwork Image" class="w-100">
-                <p>Price: $1000</p>
-                <p>Artist: John Doe</p>
-                <!-- Additional artwork details can be added here -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- JavaScript to handle modal --}}
-<script>
-    function openModal(modalId) {
-        var modal = document.getElementById(modalId);
-        modal.style.display = "block";
-    }
-
-    function closeModal(modalId) {
-        var modal = document.getElementById(modalId);
-        modal.style.display = "none";
-    }
-</script>
+@include('showmodal')
 
 
 {{-- Art-related Q&A --}}
