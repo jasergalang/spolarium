@@ -1,5 +1,8 @@
-@extends('layout.authlayout')
+@extends('layout.layout')
+
 @section('content')
+@include('layout.artHeader')
+@include('layout.artNav')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,47 +18,52 @@
 </head>
 <body>
 
-<!-- Navbar
-<nav class="bg-gray-800 text-white p-4">
-    <div class="container mx-auto flex justify-between items-center">
-        <a href="#" class="text-2xl font-bold">Artwork Shop</a>
-        <div>
-            <a href="#" class="mx-2"><i class="fas fa-shopping-cart"></i> Cart</a>
-            <a href="#" class="mx-2"><i class="fas fa-user"></i> My Account</a>
-        </div>
-    </div>
-</nav> -->
-
 <!-- Cart Form -->
-<div class="container mx-auto mt-8">
-    <h1 class="text-3xl font-bold mb-4">Your Cart</h1>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="container mx-auto mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Product List -->
+    <div>
+        <h1 class="text-3xl font-bold mb-4">Your Cart</h1>
         <!-- Product 1 -->
-        <div class="bg-white p-4 rounded-lg shadow-md">
-            <img src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/03/10/18/mona-lisa.jpg?width=1200&height=900&fit=crop" alt="Product 1" class="w-full h-48 object-cover mb-4">
-            <h2 class="text-lg font-semibold">Product 1</h2>
-            <p class="text-gray-500">$99.99</p>
-            <button class="btn btn-danger mt-4"><i class="fas fa-trash"></i> Remove</button>
+        <div class="bg-white p-2 rounded-lg shadow-md mb-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <input type="checkbox" class="mr-2">
+                <img src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/03/10/18/mona-lisa.jpg?width=1200&height=900&fit=crop" alt="Product 1" class="w-24 h-24 object-cover">
+                <div class="ml-4">
+                    <h2 class="text-lg font-semibold">Product 1</h2>
+                    <p class="text-gray-500">$99.99</p>
+                </div>
+            </div>
+            <button class="btn btn-danger"><i class="fas fa-trash"></i> Remove</button>
         </div>
         <!-- Product 2 -->
-        <div class="bg-white p-4 rounded-lg shadow-md">
-            <img src="https://www.visituffizi.org/img/artworks/botticelli-birth-venus.jpg" alt="Product 2" class="w-full h-48 object-cover mb-4">
-            <h2 class="text-lg font-semibold">Product 2</h2>
-            <p class="text-gray-500">$149.99</p>
-            <button class="btn btn-danger mt-4"><i class="fas fa-trash"></i> Remove</button>
+        <div class="bg-white p-2 rounded-lg shadow-md mb-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <input type="checkbox" class="mr-2">
+                <img src="https://www.visituffizi.org/img/artworks/botticelli-birth-venus.jpg" alt="Product 2" class="w-24 h-24 object-cover">
+                <div class="ml-4">
+                    <h2 class="text-lg font-semibold">Product 2</h2>
+                    <p class="text-gray-500">$149.99</p>
+                </div>
+            </div>
+            <button class="btn btn-danger"><i class="fas fa-trash"></i> Remove</button>
         </div>
     </div>
-    <div class="flex justify-between items-center mt-8">
-        <a href="#" class="text-blue-500"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
-        <button class="btn btn-success"><i class="fas fa-cart-shopping"></i> Checkout</button>
-    </div>
-    <div class="mt-8">
-        <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+
+    <!-- Order Summary -->
+    <div>
+    <h1 class="text-3xl font-bold mb-4">Order Summary</h1>
+    <div class="md:col-span-1">
         <div class="bg-gray-100 p-4 rounded-lg shadow-md">
-            <p class="text-lg">Total Items: 2</p>
-            <p class="text-lg">Total Price: $249.98</p>
+            <div class="border-b-2 border-gray-300 pb-2 mb-4">
+                <p class="text-lg">Total Items: 2</p>
+                <p class="text-lg">Total Price: $249.98</p>
+            </div>
+            <div class="flex justify-end">
+                <button class="btn btn-success"><i class="fas fa-cart-shopping"></i> Checkout</button>
+            </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- Bootstrap JS (Optional) -->
