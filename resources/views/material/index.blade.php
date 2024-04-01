@@ -1,35 +1,37 @@
-<div class="container mb-10 grid grid-cols-3 gap-3">
-    @foreach($artworks as $artwork)
 
+<div class="container mb-10 grid grid-cols-3 gap-3">
+
+    @foreach($materials as $material)
         <div class="bg-white shadow rounded overflow-hidden group">
+            <!-- Assuming Material has an 'image' relationship -->
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    @foreach($artwork->image as $image)
+                    @foreach($material->image as $image)
                         <div class="swiper-slide">
-                            <img src="{{ asset('images/' . $image->image_path) }}" alt="Artwork Image" class="w-96 h-52">
+                            <img src="{{ asset('images/' . $image->image_path) }}" alt="Material Image" class="w-96 h-52">
                         </div>
                     @endforeach
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
             <div class="pt-4 pb-3 px-4">
-                <a href="#" onclick="openModal('{{ $artwork->id }}')">
-                    <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">{{ $artwork->name }}</h4>
+                <a href="#" onclick="openModal('{{ $material->id }}')">
+                    <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">{{ $material->name }}</h4>
                 </a>
                 <div class="flex items-baseline mb-1 space-x-2 font-roboto">
                     <p class="text-xl text-primary font-semibold">
-                        <span class="text-gray-600">Price:</span> <span class="text-gray-600 font-bold">${{ $artwork->price }}</span>
+                        <span class="text-gray-600">Price:</span> <span class="text-gray-600 font-bold">${{ $material->price }}</span>
                         <br>
-                        <span class="text-gray-600">Artist:</span> <span class="text-gray-600 font-bold">{{ $artwork->artist->user->fname }} {{ $artwork->artist->user->lname }}</span>
-                        <br>
-                        <span class="text-gray-600">Status:</span> <span class="text-green-600 font-bold">{{ $artwork->status }}</span>
+                        <span class="text-gray-600">Status:</span> <span class="text-green-600 font-bold">{{ $material->status }}</span>
                     </p>
                 </div>
+                <!-- "View Detail" button -->
 
-                @include('artwork.show')
+                @include('material.show')
             </div>
         </div>
     @endforeach
+
 </div>
 
 <!-- Swiper CSS -->
@@ -51,4 +53,3 @@
         });
     });
 </script>
-

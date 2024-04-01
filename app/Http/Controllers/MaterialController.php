@@ -14,10 +14,14 @@ class MaterialController extends Controller
 
          return view('material.dashboard', compact('materials'));
      }
-    // public function index()
-    // {
-    //     //
-    // }
+     public function index()
+    {
+        $materials = Material::with('image')->take(6)->get();
+        return view('material.index', compact('materials'));
+    }
+
+
+
     public function create()
     {
         return view('material.create');
@@ -56,7 +60,7 @@ class MaterialController extends Controller
             $materialImage->image_path = $imageName;
             $materialImage->save();
         }
-        return redirect()->route('artwork.dashboard')->with('success', 'Artwork created successfully.');
+        return redirect()->route('material.dashboard')->with('success', 'Material created successfully.');
     }
     /**
      * Display the specified resource.
@@ -108,7 +112,7 @@ class MaterialController extends Controller
                 $artwork->image()->save($existingImage);
             }
         }
-         return redirect()->route('material.dashboard')->with('success', 'Artwork updated successfully.');
+         return redirect()->route('material.dashboard')->with('success', 'Material updated successfully.');
      }
     // /**
     //  * Remove the specified resource from storage.
@@ -118,7 +122,7 @@ class MaterialController extends Controller
         $material = Material::findOrFail($id);
         $material->delete();
 
-        return redirect()->route('material.dashboard')->with('success', 'Artwork soft-deleted successfully.');
+        return redirect()->route('material.dashboard')->with('success', 'Material soft-deleted successfully.');
     }
 
 
@@ -130,6 +134,6 @@ class MaterialController extends Controller
 
         // Restore the soft-deleted artwork
         $material->restore();
-        return redirect()->back()->with('success', 'Artwork restored successfully.');
+        return redirect()->back()->with('success', 'Material restored successfully.');
     }
 }

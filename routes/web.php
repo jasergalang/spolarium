@@ -1,15 +1,16 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\VerificationController;
-use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,7 @@ Route::get('/home', function () {
     return view('home');
 });
 
+
 Route::get('/cart', function () {
     return view('cart.cartform');
 });
@@ -65,6 +67,7 @@ Route::get('/charts', function () {
 //     Mail::to('eliso@gmail.com')->send(new Verification());
 // });
 
+Route::get('/home', [ArtworkController::class, 'home'])->name('home');
 //Registration
 Route::get('artregister', [AuthController::class, 'artistRegister'])->name('artregister');
 Route::post('artregister', [AuthController::class, 'artRegister'])->name('artregister.store');
@@ -82,6 +85,7 @@ Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('eve
 Route::put('events/{id}/restore', [EventController::class, 'restore'])->name('event.restore');
 
 //ArtworkCrud
+Route::get('/artwork/index', [ArtworkController::class, 'index'])->name('artwork.index');
 Route::get('/artwork/dashboard', [ArtworkController::class, 'dashboard'])->name('artwork.dashboard');
 Route::get('/artwork/create', [ArtworkController::class, 'create'])->name('artwork.create');
 Route::post('/artwork', [ArtworkController::class, 'store'])->name('artwork.store');
@@ -93,6 +97,7 @@ Route::put('/artwork/{id}/restore', [ArtworkController::class, 'restore'])->name
 Route::get('/artwork/trashed', [ArtworkController::class, 'trashed'])->name('artwork.trashed');
 
 //MaterialCrud
+Route::get('/material/index', [MaterialController::class, 'index'])->name('material.index');
 Route::get('/material/dashboard', [MaterialController::class, 'dashboard'])->name('material.dashboard');
 Route::get('/material/create', [MaterialController::class, 'create'])->name('material.create');
 Route::post('/material', [MaterialController::class, 'store'])->name('material.store');
@@ -110,6 +115,8 @@ Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update')
 Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 Route::put('/user/{id}/restore', [UserController::class, 'restore'])->name('user.restore');
 
+//CartCrud
+Route::post('/cart/store', [CartController::class, 'store'])->name('cart.store');
 
 //profile
 Route::get('/profile', [AuthController::class, 'show'])->name('user.profile');
@@ -146,6 +153,6 @@ Route::get('/blogs/{id}', [BlogController::class, 'update'])->name('blogs.update
 Route::get('/chart', function () {
     $customerCount = User::where('roles', 'customer')->count();
     $artistCount = User::where('roles', 'artist')->count();
-    
+
     return view('charts.charts', compact('customerCount', 'artistCount'));
 });

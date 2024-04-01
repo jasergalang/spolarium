@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('stock');
-            $table->integer('price');
+            $table->unsignedInteger('stock');
+            $table->unsignedInteger('price');
             $table->string('desc');
             $table->string('category');
             $table->string('status');

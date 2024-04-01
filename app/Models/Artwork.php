@@ -23,6 +23,10 @@ class Artwork extends Model
     }
     public function cart(){
 
-        return $this->belongsToMany(Cart::class, 'cart_artworks', 'cart_id', 'artwork_id');
+        return $this->belongsToMany(Cart::class, 'artwork_cart', 'cart_id', 'artwork_id');
+    }
+    public function order(){
+
+        return $this->belongsToMany(Order::class, 'artwork_order', 'artwork_id', 'order_id');
     }
 }

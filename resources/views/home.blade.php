@@ -2,9 +2,9 @@
 
 @section('content')
 {{-- Artistic banner --}}
-@include('layout.artHeader')
+@include('layout.cusHeader')
 
-@include('layout.artNav')
+@include('layout.cusNav')
    <div class="bg-cover bg-no-repeat bg-center py-36" style="background-image: url('https://images.pexels.com/photos/1292241/pexels-photo-1292241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')">
         <div class="container">
             <h1 class="text-4xl text-white font-medium mb-4">
@@ -96,82 +96,17 @@
     </div>
 </div>
 {{-- End of Browse Art by Categories --}}
-
-
-<div class="container mb-10 grid grid-cols-3 gap-3">
-    <!-- Artwork card 1 -->
-    <div class="bg-white shadow rounded overflow-hidden group">
-        <div class="relative">
-            <!-- Artwork image -->
-            <img src="artwork_image.jpg" alt="Artwork Image" class="w-96 h-52">
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
-                <!-- Additional HTML or Blade code -->
-            </div>
-        </div>
-        <!-- Artwork details -->
-        <div class="pt-4 pb-3 px-4">
-            <a href="#">
-                <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">Artwork Title</h4>
-            </a>
-            <div class="flex items-baseline mb-1 space-x-2 font-roboto">
-                <p class="text-xl text-primary font-semibold">
-                    Price: $1000
-                    <br>
-                    Artist: John Doe
-                </p>
-            </div>
-            <!-- Button to view artwork (opens modal) -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                View Artwork
-            </button>
-        </div>
-    </div>
-    <!-- End of artwork card 1 -->
-
-
-      <!-- Artwork card  -->
-      <div class="bg-white shadow rounded overflow-hidden group">
-        <div class="relative">
-            <!-- Artwork image -->
-            <img src="artwork_image.jpg" alt="Artwork Image" class="w-96 h-52">
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
-                <!-- Additional HTML or Blade code -->
-            </div>
-        </div>
-        <!-- Artwork details -->
-        <div class="pt-4 pb-3 px-4">
-            <a href="#">
-                <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">Artwork Title</h4>
-            </a>
-            <div class="flex items-baseline mb-1 space-x-2 font-roboto">
-                <p class="text-xl text-primary font-semibold">
-                    Price: $1000
-                    <br>
-                    Artist: John Doe
-                </p>
-            </div>
-            <!-- Button to view artwork (opens modal) -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                View Artwork
-            </button>
-        </div>
-    </div>
-    <!-- End of artwork card 1 -->
-
-
-    
-        
-
-     
-
-       
-    </div>
-    {{-- End of artwork card --}}
-    {{-- End of artwork cards --}}
+<div class="container py-16">
+<h2 class="text-3xl font-medium text-gray-800 mb-6">Browse Artworks</h2>
+@include('artwork.index')
 </div>
-{{-- End of Artistic Property Showcase --}}
 
-@include('showmodal')
+<div class="container py-16">
+<h2 class="text-3xl font-medium text-gray-800 mb-6">Shop for Art Materials</h2>
+@include('material.index')
+</div>
+
+{{-- @include('showmodal') --}}
 
 
 {{-- Art-related Q&A --}}
@@ -194,3 +129,4 @@
 </div>
 {{-- End of Art-related Q&A --}}
 
+@endsection

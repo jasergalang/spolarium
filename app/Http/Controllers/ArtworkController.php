@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{
-   Artwork, Artist, ArtImage};
+   Artwork, Artist, ArtImage, Material};
    use Illuminate\Support\Facades\Auth;
    use Illuminate\Database\Eloquent\SoftDeletes;
    use Illuminate\Support\Facades\Storage;
@@ -30,10 +30,20 @@ class ArtworkController extends Controller
 
          return view('artwork.dashboard', compact('artworks'));
      }
-    public function index()
+     public function index()
+     {
+         $artworks = Artwork::with(['artist.user', 'image'])->take(6)->get();
+         return view('artwork.index', compact('artworks'));
+     }
+
+     public function home()
     {
-        //
+        $materials = Material::with('image')->take(6)->get();
+    $artworks = Artwork::with(['artist.user', 'image'])->take(6)->get();
+    return view('home', compact('artworks','materials'));
     }
+
+
     public function create()
     {
         return view('artwork.create');

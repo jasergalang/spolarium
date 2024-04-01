@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('artist_id')->constrained('artists')->onDelete('cascade');
             $table->string('name');
+            
             $table->string('size');
             $table->string('desc');
             $table->integer('price');

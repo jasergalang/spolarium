@@ -56,7 +56,7 @@ class AuthController extends Controller
            $customer->save();
            $user->sendEmailVerificationNotification();
 
-           return redirect(route('verification.send'))->with("success", "Registration Successful!!");
+           return redirect(route('login'))->with("success", "Registration Successful!!");
     }
     function artRegister(Request $request)
     {
@@ -123,7 +123,7 @@ class AuthController extends Controller
                case 'customer':
                    $customer = Customer::where('user_id', $user->id)->first();
                    if ($customer) {
-                       return redirect()->route('cusDashboard')->with('customer_id', $user->id);
+                       return redirect()->route('home')->with('customer_id', $user->id);
                    }
                    break;
             //    case 'admin':
