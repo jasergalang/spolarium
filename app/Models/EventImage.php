@@ -14,6 +14,6 @@ class EventImage extends Model
     // Define relationship with Event model
     public function event()
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(Event::class,'event_id');
     }
 }

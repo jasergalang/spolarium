@@ -13,6 +13,7 @@
                 <th>Description</th>
                 <th>Category</th>
                 <th>Dimensions</th>
+                <th>Image</th>
                 <th>Actions</th> <!-- Added column for CRUD actions -->
             </tr>
         </thead>
@@ -24,6 +25,13 @@
                 <td>{{ $artwork->desc }}</td>
                 <td>{{ $artwork->category }}</td>
                 <td>{{ $artwork->size }}</td>
+                <td>
+                    @if ($artwork->image->isNotEmpty())
+                        <img src="{{ asset('images/' . $artwork->image->first()->image_path) }}" alt="{{ $artwork->name }}" style="max-width: 300px; max-height: 300px;">
+                    @else
+                        No Image
+                    @endif
+                </td>
                 <td class="text-center">
                     <button class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showArtworkModal{{ $artwork->id }}"><i class="fas fa-eye"></i> Show</button>
                     <a href="{{ route('artwork.edit', $artwork->id) }}" class="btn btn-sm btn-primary me-2"><i class="fas fa-edit"></i> Edit</a>

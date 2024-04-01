@@ -8,21 +8,19 @@ use App\Models\MaterialImage;
 
 class MaterialController extends Controller
 {
-    // public function dashboard()
-    //  {
-    //      $userId = auth()->id();
-    //      $artist = Artist::where('user_id', $userId)->firstOrFail();
-    //      $artworks = $artist->artwork()->withTrashed()->get();
+    public function dashboard()
+     {
+        $materials = Material::withTrashed()->get();
 
-    //      return view('artwork.dashboard', compact('artworks'));
-    //  }
+         return view('material.dashboard', compact('materials'));
+     }
     // public function index()
     // {
     //     //
     // }
     public function create()
     {
-        return view('artwork.create');
+        return view('material.create');
     }
 
     public function store(Request $request)
@@ -31,7 +29,7 @@ class MaterialController extends Controller
         $request->validate([
             'name' => 'required|string',
             'price' => 'required|numeric',
-            'description' => 'required|string',
+            'desc' => 'required|string',
             'category' => 'required|string',
             'stock' => 'required|numeric',
         ]);
@@ -41,7 +39,7 @@ class MaterialController extends Controller
         $material = new Material();
         $material->name = $request->name;
         $material->price = $request->price;
-        $material->desc = $request->description;
+        $material->desc = $request->desc;
         $material->category = $request->category;
         $material->stock = $request->stock;
         $material->status = "available";
@@ -54,7 +52,7 @@ class MaterialController extends Controller
 
             // Create a new ArtImage record
             $materialImage = new MaterialImage();
-            $materialImage->artwork_id = $material->id; // Associate the image with the artwork
+            $materialImage->material_id = $material->id; // Associate the image with the artwork
             $materialImage->image_path = $imageName;
             $materialImage->save();
         }
@@ -72,52 +70,52 @@ class MaterialController extends Controller
      * Show the form for editing the specified resource.
      */
 
-    //  public function edit($id)
-    //  {
-    //      $artwork = Artwork::findOrFail($id);
-    //      return view('artwork.edit', compact('artwork'));
-    //  }
+     public function edit($id)
+     {
+         $material = Material::findOrFail($id);
+         return view('material.edit', compact('material'));
+     }
 
-    //  public function update(Request $request, $id)
-    //  {
-    //     $request->validate([
-    //         'artwork_name' => 'nullable|string',
-    //         'art_price' => 'nullable|numeric',
-    //         'art_description' => 'nullable|string',
-    //         'art_category' => 'nullable|string',
-    //         'art_size' => 'nullable|string',
-    //      ]);
-    //      $artwork = Artwork::findOrFail($id);
-    //      $artwork->update([
-    //          'name' => $request->artwork_name,
-    //          'price' => $request->art_price,
-    //          'desc' => $request->art_description,
-    //          'category' => $request->art_category,
-    //          'size' => $request->art_size,
-    //      ]);
+     public function update(Request $request, $id)
+     {
+        $request->validate([
+            'name' => 'nullable|string',
+            'price' => 'nullable|numeric',
+            'desc' => 'nullable|string',
+            'category' => 'nullable|string',
+            'stock' => 'nullable|numeric',
+         ]);
+         $artwork = Material::findOrFail($id);
+         $artwork->update([
+             'name' => $request->name,
+             'price' => $request->price,
+             'desc' => $request->desc,
+             'category' => $request->category,
+             'stock' => $request->stock,
+         ]);
 
-    //      return redirect()->route('artwork.dashboard')->with('success', 'Artwork updated successfully.');
-    //  }
+         return redirect()->route('material.dashboard')->with('success', 'Artwork updated successfully.');
+     }
     // /**
     //  * Remove the specified resource from storage.
     //  */
-    // public function destroy($id)
-    // {
-    //     $artwork = Artwork::findOrFail($id);
-    //     $artwork->delete();
+    public function destroy($id)
+    {
+        $material = Material::findOrFail($id);
+        $material->delete();
 
-    //     return redirect()->route('artwork.dashboard')->with('success', 'Artwork soft-deleted successfully.');
-    // }
+        return redirect()->route('material.dashboard')->with('success', 'Artwork soft-deleted successfully.');
+    }
 
 
 
-    // public function restore($id)
-    // {
-    //     // Find the soft-deleted artwork by its ID
-    //     $artwork = Artwork::withTrashed()->findOrFail($id);
+    public function restore($id)
+    {
+        // Find the soft-deleted artwork by its ID
+        $material = Material::withTrashed()->findOrFail($id);
 
-    //     // Restore the soft-deleted artwork
-    //     $artwork->restore();
-    //     return redirect()->back()->with('success', 'Artwork restored successfully.');
-    // }
+        // Restore the soft-deleted artwork
+        $material->restore();
+        return redirect()->back()->with('success', 'Artwork restored successfully.');
+    }
 }

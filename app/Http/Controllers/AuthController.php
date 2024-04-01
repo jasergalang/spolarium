@@ -117,7 +117,7 @@ class AuthController extends Controller
                case 'artist':
                    $artist = Artist::where('user_id', $user->id)->first();
                    if ($artist) {
-                       return redirect()->route('artwork.create')->with('artist_id', $user->id);
+                       return redirect()->route('artwork.dashboard')->with('artist_id', $user->id);
                    }
                    break;
                case 'customer':
@@ -140,6 +140,7 @@ class AuthController extends Controller
 
        return back()->withInput()->withErrors(['email' => 'Invalid email or password.']);
    }
+
    public function verify($token)
 {
     $user = User::where('remember_token', '=', $token)->first();
@@ -153,5 +154,15 @@ class AuthController extends Controller
         abort(404);
     }
 }
+function logout()
+    {
+        Auth::logout();
+        return redirect('/login')->with('success', 'Logged out successfully.');
+    }
+    public function show()
+    {
+        $user = auth()->user();
+        return view('user.show', compact('user'));
+    }
 
 }

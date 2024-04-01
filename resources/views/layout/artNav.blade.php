@@ -12,37 +12,37 @@
 
                  <div class="absolute w-full left-0 top-full bg-white shadow-md py-3 divide-y divide-gray-300 divide-solid hidden group-hover:block transition">
 
-                     <a href="showproperty#location-id" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                     <a href="" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                          <i class="fa-solid fa-map-location-dot w-5 h-5 object-contain"></i>
                          <span class="ml-6 text-gray-600 text-sm">Painting</span>
                      </a>
 
-                     <a href="showproperty#property-id" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                     <a href="" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                          <i class="fa-solid fa-list w-5 h-5 object-contain"></i>
                          <span class="ml-6 text-gray-600 text-sm">Printmaking/span>
                      </a>
 
-                     <a href="showproperty#price-id" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                     <a href="" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                          <i class="fa-solid fa-peso-sign w-5 h-5 object-contain"></i>
                          <span class="ml-6 text-gray-600 text-sm">Photography</span>
                      </a>
 
-                     <a href="showproperty#bedrooms-id" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                     <a href="" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                          <i class="fa-solid fa-bed w-5 h-5 object-contain"></i>
                          <span class="ml-6 text-gray-600 text-sm">Sculpture</span>
                      </a>
 
-                     <a href="showproperty#bathrooms-id" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                     <a href="" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                          <i class="fa-solid fa-bath w-5 h-5 object-contain"></i>
                          <span class="ml-6 text-gray-600 text-sm">Drawing</span>
                      </a>
 
-                     <a href="showproperty#floor-id" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                     <a href="" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                          <i class="fa-solid fa-ruler-combined w-5 h-5 object-contain"></i>
                          <span class="ml-6 text-gray-600 text-sm">Digital Art</span>
                      </a>
 
-                     <a href="showproperty#amenities-id" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                     <a href="" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                          <i class="fa-solid fa-person-shelter w-5 h-5 object-contain"></i>
                          <span class="ml-6 text-gray-600 text-sm">Collage</span>
                      </a>

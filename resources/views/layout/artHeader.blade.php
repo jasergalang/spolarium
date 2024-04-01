@@ -16,7 +16,7 @@
         {{-- yung icons --}}
         <div class="flex items-center space-x-4">
             {{-- account button --}}
-            <a href="profile" class="text-center text-gray-700 hover:text-primary transition relative">
+            <a href="{{route ('user.profile') }}" class="text-center text-gray-700 hover:text-primary transition relative">
                 <div class="text-2xl">
                     <i class="fas fa-user"></i>
                 </div>
@@ -24,13 +24,8 @@
             </a>
         </div>
 
-        <a href="" class="text-center text-gray-700 hover:text-primary transition relative">
-            <div class="text-2xl">
-                <i class="fa-solid fa-right-from-bracket"></i>
-            </div>
-            <div class="text-sx leading-3">Log Out</div>
-        </a>
-        {{-- @auth
+
+        @auth
         <!-- Show links for authenticated users -->
         <a href="{{ route('logout') }}" class="text-center text-gray-700 hover:text-primary transition relative">
             <div class="text-2xl">
@@ -47,5 +42,5 @@
             <div class="text-sx leading-3">Log In</div>
         </a>
     </div>
-    @endauth --}}
+    @endauth
 </header>
