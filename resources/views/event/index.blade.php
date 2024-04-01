@@ -10,7 +10,6 @@
                 <table id="artworkTable" class="table table-bordered table-hover">
                     <thead class="bg-gray-800 text-white">
                         <tr>
-<<<<<<< HEAD
                             <th>Title</th>
                             <th>Date</th>
                             <th>Time</th>
@@ -19,37 +18,6 @@
                             <th>Category</th>
                             <th>Image</th>
                             <th>Actions</th>
-=======
-                            <td>{{ $event->title }}</td>
-                            <td>{{ $event->date }}</td>
-                            <td><span id="eventTimeFormatted{{ $event->id }}"></span></td>
-                            <td>{{ $event->description }}</td>
-                            <td>{{ $event->location }}</td>
-                            <td>{{ $event->category }}</td>
-                            <td>
-                                @if ($event->image->isNotEmpty())
-                                <img src="{{ asset('/storage/event_images/public/event_images' . $event->image->first()->image_path) }} alt="{{ $event->title }}" style="max-width: 300px; max-height: 300px;">
-                                @else
-                                    No Image
-                                @endif
-                            </td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showEventModal{{ $event->id }}"><i class="fas fa-eye"></i> Show</button>
-                                <a href="{{ route('event.edit', $event->id) }}" class="btn btn-sm btn-secondary me-2"><i class="fas fa-edit"></i> Edit</a>
-                                @if ($event->trashed())
-                                    {{-- Restore button --}}
-                                    <form method="POST" action="{{ route('event.restore', $event->id) }}">
-                                        @csrf
-                                        @method('PUT')
-                                        <button type="submit" class="btn btn-sm btn-success me-2">
-                                            <i class="fas fa-trash-restore"></i> Restore Event
-                                        </button>
-                                    </form>
-                                @else
-                                    <button class="btn btn-sm btn-danger" onclick="showDeleteConfirmationModal({{ $event->id }})"><i class="fas fa-trash"></i> Delete</button>
-                                @endif
-                            </td>
->>>>>>> 76e586429264353e7ed66e25f470bd35257c7a11
                         </tr>
                     </thead>
                     <tbody>
@@ -196,7 +164,7 @@
                     document.getElementById('eventTimeFormatted{{ $event->id }}').textContent = formattedTime{{ $event->id }};
                 @endforeach
             });
-            
+
         </script>
 
         <script>
