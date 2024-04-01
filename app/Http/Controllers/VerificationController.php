@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
 class VerificationController extends Controller
-{public function sendVerificationEmail(Request $request)
+{
+    public function sendVerificationEmail(Request $request)
     {
         // Check if user is authenticated
         if ($request->user()) {

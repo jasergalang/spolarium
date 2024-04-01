@@ -1,109 +1,30 @@
 @extends('layout.layout')
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artwork Shop Event</title>
-    <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <!-- Custom CSS for animations -->
-    <style>
-        @keyframes floating {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
-        }
-        .event-card {
-            animation: floating 3s ease-in-out infinite;
-        }
-    </style>
-</head>
-<body>
-
+@section('content')
 <!-- Hero Section -->
 <section class="bg-gray-100 py-20">
-    <div class="container mx-auto">
-        <h1 class="text-4xl font-bold text-center mb-4">Upcoming Events</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-            <!-- Event Card 1 -->
+    <div class="container mx-auto mt-8">
+        <h1 class="text-3xl font-bold mb-8">Dashboard</h1>
+
+        <div class="grid grid-cols-3 gap-4">
+            @foreach($events as $event)
             <div class="bg-white shadow-lg rounded-lg overflow-hidden event-card">
-                <img src="https://via.placeholder.com/400x200" alt="Event" class="w-full h-64 object-cover">
+                @if($event->eventImage)
+                <img src="{{ asset('/storage/' . $event->image->image_path) }}" alt="Event" class="w-full h-64 object-cover">
+            @else
+                <img src="https://via.placeholder.com/400x200" alt="Placeholder Image" class="w-full h-64 object-cover">
+            @endif
+
                 <div class="p-6">
-                    <h2 class="font-semibold text-xl mb-2">Art Exhibition 1</h2>
-                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <h2 class="font-semibold text-xl mb-2">{{ $event->title }}</h2>
+                    <p class="text-gray-600">{{ $event->description }}</p>
                     <div class="mt-4 flex justify-between">
-                        <span class="text-gray-500">Date: April 15, 2024</span>
+                        <span class="text-gray-500">Date: {{ $event->date }}</span>
                         <button class="px-4 py-2 bg-primary text-white rounded-full">Register</button>
                     </div>
                 </div>
             </div>
-            <!-- Event Card 2 -->
-            <div class="bg-white shadow-lg rounded-lg overflow-hidden event-card">
-                <img src="https://via.placeholder.com/400x200" alt="Event" class="w-full h-64 object-cover">
-                <div class="p-6">
-                    <h2 class="font-semibold text-xl mb-2">Art Exhibition 2</h2>
-                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <div class="mt-4 flex justify-between">
-                        <span class="text-gray-500">Date: April 20, 2024</span>
-                        <button class="px-4 py-2 bg-primary text-white rounded-full">Register</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Event Card 3 -->
-            <div class="bg-white shadow-lg rounded-lg overflow-hidden event-card">
-                <img src="https://via.placeholder.com/400x200" alt="Event" class="w-full h-64 object-cover">
-                <div class="p-6">
-                    <h2 class="font-semibold text-xl mb-2">Art Exhibition 3</h2>
-                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <div class="mt-4 flex justify-between">
-                        <span class="text-gray-500">Date: April 25, 2024</span>
-                        <button class="px-4 py-2 bg-primary text-white rounded-full">Register</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Event Card 4 -->
-            <div class="bg-white shadow-lg rounded-lg overflow-hidden event-card">
-                <img src="https://via.placeholder.com/400x200" alt="Event" class="w-full h-64 object-cover">
-                <div class="p-6">
-                    <h2 class="font-semibold text-xl mb-2">Art Exhibition 4</h2>
-                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <div class="mt-4 flex justify-between">
-                        <span class="text-gray-500">Date: April 30, 2024</span>
-                        <button class="px-4 py-2 bg-primary text-white rounded-full">Register</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Event Card 5 -->
-            <div class="bg-white shadow-lg rounded-lg overflow-hidden event-card">
-                <img src="https://via.placeholder.com/400x200" alt="Event" class="w-full h-64 object-cover">
-                <div class="p-6">
-                    <h2 class="font-semibold text-xl mb-2">Art Exhibition 5</h2>
-                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <div class="mt-4 flex justify-between">
-                        <span class="text-gray-500">Date: May 5, 2024</span>
-                        <button class="px-4 py-2 bg-primary text-white rounded-full">Register</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Event Card 6 -->
-            <div class="bg-white shadow-lg rounded-lg overflow-hidden event-card">
-                <img src="https://via.placeholder.com/400x200" alt="Event" class="w-full h-64 object-cover">
-                <div class="p-6">
-                    <h2 class="font-semibold text-xl mb-2">Art Exhibition 6</h2>
-                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <div class="mt-4 flex justify-between">
-                        <span class="text-gray-500">Date: May 10, 2024</span>
-                        <button class="px-4 py-2 bg-primary text-white rounded-full">Register</button>
-                    </div>
-                </div>
-            </div>
-            <!-- End Event Cards -->
+            @endforeach
         </div>
     </div>
 </section>
@@ -112,5 +33,25 @@
 
 <!-- Bootstrap JS (Optional) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+@endsection
+@section('scripts')
+@parent
+
+@if(session('success'))
+    <script>
+        alert("{{ session('success') }}");
+    </script>
+@endif
+@if(session('error'))
+    <script>
+        alert("{{ session('error') }}");
+    </script>
+@endif
+
+@if ($errors->any())
+    <script>
+        var errorMessage = @json($errors->all());
+        alert(errorMessage.join('\n'));
+    </script>
+@endif
+@endsection

@@ -79,16 +79,22 @@
         </div>
 
         <!-- Event Image Upload -->
-        <div class="p-6 bg-white hover:shadow-2xl rounded-2xl transition mx-5">
-            <div class="text-lg font-bold mb-4 border-b">Event Image</div>
-            <div class="mx-5 my-10">
-                <div class="mb-6">
-                    <label class="block text-sm font-semibold mb-2" for="eventImage">Upload Image:</label>
-                    <input type="file" id="eventImage" name="event_image" class="w-full px-3 py-2 border rounded-md">
-                </div>
-            </div>
+        <div class="flex items-center justify-center mt-10 text-center">
+            <label for="fileInput" class="flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                <input type="file" accept=".png, .jpg" id="fileInput" name="images[]" style="display: none;" multiple accept="image/*">
+                <i class="bg-transparent text-gray-500 hover:text-red-500 font-bold h-24 w-full py-2 px-4 rounded-xl flex justify-center items-center">
+                    <i class="fa-solid fa-image mr-2"></i>
+                    Select Images
+                </i>
+            </label>
         </div>
-    </div>
+
+
+        <div class="text-lg font-bold mb-5 my-10 mx-20 border-b">Selected Photos:</div>
+
+        <div id="imageContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- Images will be dynamically inserted here -->
+        </div>
 
     <!-- Submit Button -->
     <div class="mx-auto w-64">
@@ -105,24 +111,55 @@
 
 @endsection
 @section('scripts')
-    @parent
+@parent
+<script>
+    // Function to handle file input change event
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        var files = e.target.files; // Get the selected files
+        var imageContainer = document.getElementById('imageContainer'); // Get the image container
 
-    @if(session('success'))
-        <script>
-            alert("{{ session('success') }}");
-        </script>
-    @endif
-    @if(session('error'))
-        <script>
-            alert("{{ session('error') }}");
-        </script>
-    @endif
+        // Clear previous contents of the container
+        imageContainer.innerHTML = '';
 
-    @if ($errors->any())
-        <script>
-            var errorMessage = @json($errors->all());
-            alert(errorMessage.join('\n'));
-        </script>
-    @endif
+        // Loop through each selected file
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var reader = new FileReader(); // Create a FileReader object
+
+            // Closure to capture the file information
+            reader.onload = (function(file) {
+                return function(e) {
+                    // Create an image element
+                    var imgElement = document.createElement('img');
+                    imgElement.classList.add('w-full', 'h-auto');
+                    imgElement.src = e.target.result; // Set the image source to the FileReader result
+                    // Append the image element to the container
+                    imageContainer.appendChild(imgElement);
+                };
+            })(file);
+
+            // Read the selected file as a Data URL
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+@if(session('success'))
+<script>
+    alert("{{ session('success') }}");
+</script>
+@endif
+@if(session('error'))
+<script>
+    alert("{{ session('error') }}");
+</script>
+@endif
+
+@if ($errors->any())
+<script>
+    var errorMessage = @json($errors->all());
+    alert(errorMessage.join('\n'));
+</script>
+@endif
 @endsection
 

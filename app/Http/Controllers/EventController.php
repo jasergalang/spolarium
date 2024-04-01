@@ -6,13 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\EventImages;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 class EventController extends Controller
 {
     // Get all events
+    public function dashboard()
+    {
+        $events = Event::withTrashed()->get();
+
+        return view('event.dashboard', compact('events'));
+    }
+
     public function index()
     {
         $events = Event::withTrashed()->get();
-        
+
         return view('event.index', compact('events'));
     }
 
@@ -27,6 +35,7 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'event_title' => 'required',
             'event_date' => 'required|date',
@@ -36,35 +45,36 @@ class EventController extends Controller
             'event_time' => 'required', // Validation for event time
             'event_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validation for image file
         ]);
-    
-        // Handle file upload
-        if ($request->hasFile('event_image')) {
-            // Store the uploaded file in the filesystem and get its path
-            $imagePath = $request->file('event_image')->store('event_images');
-        } else {
-            $imagePath = null; // If no image is uploaded
+
+        $userId = Auth::id();
+
+        // Find the artist record based on the user ID
+        $event = Event::where('user_id', $userId)->firstOrFail();
+
+        // Create the artwork
+        $event = new Event();
+        $event->title = $request->event_title;
+        $event->date = $request->event_date;
+        $event->price = $request->event_description;
+        $event->desc = $request->event_location;
+        $event->category = $request->event_category;
+        $event->size = $request->event_time;
+        $event->status = "available";
+
+        $event->save();
+
+        foreach ($request->file('event_image') as $image) {
+            // Store the image file
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images'), $imageName);
+
+            // Create a new ArtImage record
+            $eventImage = new EventImage();
+            $eventImage->artwork_id = $event->id; // Associate the image with the artwork
+            $eventImage->image_path = $imageName;
+            $eventImage->save();
         }
-    
-        // Create the Event model instance with only the necessary fields
-        $event = Event::create([
-            'title' => $request->input('event_title'),
-            'date' => $request->input('event_date'),
-            'description' => $request->input('event_description'),
-            'location' => $request->input('event_location'),
-            'category' => $request->input('event_category'),
-            'time' => $request->input('event_time'),
-        ]);
-    
-        // If image was uploaded, create a corresponding entry in event_images table
-        if ($imagePath) {
-            $eventImage = EventImage::create([
-                'event_id' => $event->id,
-                'image_path' => $imagePath,
-            ]);
-        }
-    
-        return redirect()->route('event.index')
-            ->with('success', 'Event created successfully.');
+        return redirect()->route('artwork.dashboard')->with('success', 'Artwork created successfully.');
     }
 
 
