@@ -11,7 +11,8 @@ class EventController extends Controller
     // Get all events
     public function index()
     {
-        $events = Event::all();
+        $events = Event::withTrashed()->get();
+        
         return view('event.index', compact('events'));
     }
 
@@ -133,6 +134,15 @@ class EventController extends Controller
 
         return redirect()->route('event.index')
             ->with('success', 'Event deleted successfully');
+    }
+    public function restore($id)
+    {
+        // Find the soft-deleted artwork by its ID
+        $event = Event::withTrashed()->findOrFail($id);
+
+        // Restore the soft-deleted artwork
+        $event->restore();
+        return redirect()->back()->with('success', 'Artwork restored successfully.');
     }
 
 }
