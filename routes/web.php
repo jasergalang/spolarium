@@ -40,6 +40,15 @@ Route::get('/manageevent', function () {
     return view('event.manageevent');
 });
 
+Route::get('/home', function () {
+    return view('home');
+});
+
+
+Route::get('/showcase', function () {
+    return view('artworkshowcase');
+});
+
 // Route::get('/mail', function () {
 //     Mail::to('eliso@gmail.com')->send(new Verification());
 // });
