@@ -49,50 +49,19 @@
                                             </button>
                                         </form>
                                     @else
-                                        <button class="btn btn-sm btn-danger" onclick="showDeleteConfirmationModal({{ $event->id }})"><i class="fas fa-trash"></i> Delete</button>
+                                    <form method="POST" action="{{ route('event.destroy', $event->id) }}">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-sm btn-danger">
+                <i class="fas fa-trash"></i> Delete
+            </button>
+        </form>
                                     @endif
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-        </div>
-
-        <!-- Delete Confirmation Modal -->
-        <div class="modal" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                    <p><strong>Event Date:</strong> {{ $event->date }}</p>
-                        <p><strong>Event Time:</strong> <span id="eventTimeFormattedForModal{{ $event->id }}"></span></p>
-                        <p><strong>Event Description:</strong> {{ $event->description }}</p>
-                        <p><strong>Event Location:</strong> {{ $event->location }}</p>
-                        <p><strong>Event Category:</strong> {{ $event->category }}</p>
-                        <p><strong>Event Image:</strong></p>
-                        <div class="text-center">
-                            @if ($event->image)
-                                <img src="{{ asset('images/'.($event->image->first()->image_path))  }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px;">
-                            @elseif ($event->image->isNotEmpty())
-                            <img src="{{ asset('images/' . $event->image->first()->image_path) }} alt="{{ $event->title }}" style="max-width: 300px; max-height: 300px;">
-                            @else
-                                No Image
-                            @endif
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <form id="deleteEventForm" method="POST" action="">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -113,11 +82,16 @@
                             <p><strong>Event Category:</strong> {{ $event->category }}</p>
                             <p><strong>Event Image:</strong></p>
                             <div class="text-center">
-                                @if ($event->image)
-                                    <img src="{{ asset('images/'. ($event->image->first()->image_path))  }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px;">
-                                @else
-                                    No Image
-                                @endif
+                              @if ($event->image->isNotEmpty())
+    <div style="display: flex;">
+        @foreach ($event->image as $image)
+            <img src="{{ asset('images/'. $image->image_path) }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px; margin-right: 10px;">
+        @endforeach
+    </div>
+@else
+    No Image
+@endif
+
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -141,7 +115,32 @@
         </script>
 
 
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Loop through each event to format time
+            @foreach ($events as $event)
+                var eventTime{{ $event->id }} = "{{ $event->time }}"; // Assuming $event->time contains the time value from the database
 
+                // Split the time into hours and minutes
+                var timeParts{{ $event->id }} = eventTime{{ $event->id }}.split(':');
+                var hours{{ $event->id }} = parseInt(timeParts{{ $event->id }}[0], 10);
+                var minutes{{ $event->id }} = timeParts{{ $event->id }}[1];
+
+                // Determine AM or PM and convert hours to 12-hour format
+                var period{{ $event->id }} = (hours{{ $event->id }} >= 12) ? 'PM' : 'AM';
+                hours{{ $event->id }} = (hours{{ $event->id }} % 12 === 0) ? 12 : hours{{ $event->id }} % 12;
+
+                // Format hours and minutes
+                var formattedHours{{ $event->id }} = (hours{{ $event->id }} < 10 ? '0' : '') + hours{{ $event->id }};
+                var formattedMinutes{{ $event->id }} = (minutes{{ $event->id }} < 10 ? '0' : '') + minutes{{ $event->id }};
+
+                // Display the formatted time
+                var formattedTime{{ $event->id }} = formattedHours{{ $event->id }} + ':' + formattedMinutes{{ $event->id }} + ' ' + period{{ $event->id }};
+                document.getElementById('eventTimeFormatted{{ $event->id }}').textContent = formattedTime{{ $event->id }};
+            @endforeach
+        });
+
+        </script>
         <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Loop through each event to format time
@@ -163,11 +162,12 @@
 
                 // Display the formatted time
                 var formattedTime{{ $event->id }} = formattedHours{{ $event->id }} + ':' + formattedMinutes{{ $event->id }} + ' ' + period{{ $event->id }};
-                document.getElementById('eventTimeFormattedForModal{{ $event->id }}').textContent = formattedTime{{ $event->id }};
+                document.getElementById('eventTimeFormattedforshowmodal{{ $event->id }}').textContent = formattedTime{{ $event->id }};
             @endforeach
         });
 
         </script>
+
 
         <script>
             function showDeleteConfirmationModal(eventId) {
