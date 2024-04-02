@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\{Material, Cart, Customer,Artwork};
+use App\Models\{Material, Cart, Customer,Artwork, Order};
 use Illuminate\Support\Facades\Log;
 class CartController extends Controller
 {
@@ -128,7 +128,61 @@ class CartController extends Controller
 
         return redirect()->back()->with('success', 'Material added to cart successfully.');
     }
+    public function placeorder(Request $request)
+    {
 
+        $userId = Auth::id();
+
+        $customer = Customer::where('user_id', $userId)->first();
+        $customerId = $customer->id;
+
+        $validatedData = $request->validate([
+            'shipping_address' => 'required|string|max:255',
+            'payment_method' => 'required|string|in:credit_card,paypal,bdo,gcash,paymaya,coins.ph',
+        ]);
+
+        $shippingAddress = $validatedData['shipping_address'];
+        $paymentMethod = $validatedData['payment_method'];
+
+        $order = Order::where('customer_id', $customerId)->first();
+
+        // If no order exists, create a new one
+        if (!$order) {
+            $order = new Order();
+            $order->customer_id = $customerId;
+            $order->status = 'pending';
+            $order->shipping_address = $shippingAddress;
+            $order->payment_method = $paymentMethod;
+            $order->save();
+        }
+
+        // Retrieve material quantities from the input fields
+        $artworkQuantities = session('artwork_quantities');
+        $materialQuantities = session('material_quantities');
+
+
+            foreach ($materialQuantities as $materialId => $quantity) {
+                if ($quantity > 0) {
+                    // Insert ordered material into material_order pivot table
+                    $order->material()->attach($materialId, ['quantity' => $quantity]);
+                    // Update material stock
+                    $material = Material::findOrFail($materialId);
+                    $material->stock -= $quantity;
+                    $material->save();
+                }
+            }
+
+
+        // Retrieve artwork quantities from the input fields
+            foreach ($artworkQuantities as $artworkId => $quantity) {
+                if ($quantity > 0) {
+                    // Insert ordered artwork into artwork_order pivot table
+                    $order->artwork()->attach($artworkId, ['quantity' => $quantity]);
+                }
+            }
+
+        return redirect()->back()->with('success', 'Order placed successfully!');
+    }
     /**
      * Display the specified resource.
      */

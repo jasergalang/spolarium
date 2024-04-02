@@ -127,7 +127,7 @@ Route::put('/user/{id}/restore', [UserController::class, 'restore'])->name('user
 
 
 //CartCrud
-Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+Route::post('/placeorder', [CartController::class, 'placeorder'])->name('order.store');
 
 Route::post('/cart/add-artwork', [CartController::class, 'addArtworkToCart'])->name('cart.addArtwork');
 Route::post('/cart/add-material', [CartController::class, 'addMaterialToCart'])->name('cart.addMaterial');
