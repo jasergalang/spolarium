@@ -5,6 +5,7 @@
 <!-- Main Content -->
 <div class="container mx-auto mt-8">
     <!-- Artworks Table -->
+    <a href="{{ route('blogs.create') }}" class="btn btn-primary mt-4"><i class="fas fa-plus"></i> Add Blogs</a>
     <table id="blogTable" class="table table-bordered table-hover">
         <thead class="bg-gray-800 text-white">
             <tr>
@@ -73,7 +74,7 @@
                             @if ($blog->image->isNotEmpty())
     <div style="display: flex;">
         @foreach ($blog->image as $image)
-            <img src="{{ asset('images/'. $blog->image_path) }}" alt="{{ $blog->title }}" style="max-width: 100px; max-height: 100px; margin-right: 10px;">
+        <img src="{{ asset('images/'. ($blog->image->first()->image_path)) }}" style="max-width: 100px; max-height: 100px; margin-right: 10px;">
         @endforeach
     </div>
 @else

@@ -6,6 +6,7 @@
 <div class="container mx-auto mt-8">
     <!-- Artworks Table -->
     <table id="artworkTable" class="table table-bordered table-hover">
+    <a href="{{ route('artwork.create') }}" class="btn btn-primary mt-4"><i class="fas fa-plus"></i> Add Artwork</a>
         <thead class="bg-gray-800 text-white">
             <tr>
                 <th>Name of Artwork</th>
@@ -14,7 +15,7 @@
                 <th>Category</th>
                 <th>Dimensions</th>
                 <th>Image</th>
-                <th>Actions</th> <!-- Added column for CRUD actions -->
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -61,9 +62,8 @@
         </tbody>
     </table>
 
-    <!-- Add Artwork Button -->
-    <button class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#addArtworkModal"><i class="fas fa-plus"></i> Add Artwork</button>
-</div>
+   
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
