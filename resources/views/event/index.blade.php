@@ -5,6 +5,7 @@
 
         <div class="container mx-auto mt-8">
             <!-- Artworks Table -->
+            <a href="{{ route('event.create') }}" class="btn btn-primary mt-4"><i class="fas fa-plus"></i> Add Event</a>
             <div class="table-responsive">
                 <table id="artworkTable" class="table table-bordered table-hover">
                     <thead class="bg-gray-800 text-white">

@@ -37,6 +37,8 @@
                 <input type="text" name="art_description" placeholder="Enter artwork description" class="rounded-md border border-gray-300 w-full h-20">
             </div>
         </div>
+
+        
         <div class="p-6 bg-white hover:scale-105 hover:shadow-2xl rounded-2xl transition mx-5">
             <div class="text-lg font-bold mb-4 border-b">Size</div>
             <div class="mx-5 my-10">

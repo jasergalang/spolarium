@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Mail\OrderReceipt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\{Material, Cart, Customer,Artwork, Order};
 use Illuminate\Support\Facades\Log;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 class CartController extends Controller
 {
     /**
@@ -180,7 +182,12 @@ class CartController extends Controller
                     $order->artwork()->attach($artworkId, ['quantity' => $quantity]);
                 }
             }
+            $userEmail = User::find($userId)->email;
 
+            // Send the order receipt email to the user's email address
+            Mail::to($userEmail)->send(new OrderReceipt($order));
+            return view('order_receipt', ['order' => $order]);
+            return redirect()->back()->with('success', 'Order placed successfully! An email receipt has been sent.');
         return redirect()->back()->with('success', 'Order placed successfully!');
     }
     /**
