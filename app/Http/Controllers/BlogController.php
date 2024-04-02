@@ -9,11 +9,18 @@ use App\Models\BlogImage;
 class BlogController extends Controller
 {
     public function dashboard()
+    {
+        // Retrieve all blogs
+        $blogs = Blog::withTrashed()->get();
+    
+        return view('blogs.index', compact('blogs'));
+    }
+    
+public function index()
 {
-    // Retrieve all artworks
-    $blogs= Blog::all();
+    $blogs = Blog::withTrashed()->get();
 
-    return view('blogs.blogsdashboard', compact('blogs'));
+    return view('blogs.index', compact('blogs'));
 }
 
     public function create()
@@ -28,62 +35,94 @@ class BlogController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
+            'images*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
         $blog = new Blog();
         $blog->title = $request->title;
         $blog->content = $request->content;
         $blog->save();
-        foreach ($request->file('image') as $image) {
+        foreach ($request->file('images') as $image) {
             // Store the image file
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('image'), $imageName);
+            $image->move(public_path('images'), $imageName);
 
             // Create a new ArtImage record
             $blogImage = new BlogImage();
             $blogImage->blog_id= $blog->id; // Associate the image with the artwork
-            $blogImage->image = $imageName;
+            $blogImage->image_path = $imageName;
             $blogImage->save();
         }
-    
-        return redirect()->route('blogsdashboard')->with('success', 'Blog created successfully.');
+
+        return redirect()->route('blogs.index')->with('success', 'Blog created successfully.');
     }
 
     
 
 
-    public function show($id)
-    {
-        $blog = Blog::findOrFail($id);
-        return view('blogs.show', compact('blog'));
-    }
 
     public function edit($id)
     {
         $blog = Blog::findOrFail($id);
-        return view('blogs.update', compact('blog'));
+        return view('blogs.edit', compact('blog'));
+    }
+    
+    
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'title' => 'required',
+        'content' => 'required',
+        'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Correct the validation rule for images
+    ]);
+    $blog = Blog::findOrFail($id);
+    // Update the blog's title and content
+    $blog->update([
+        'title' => $request->title,
+        'content' => $request->content,
+    ]);
+
+    if ($request->hasFile('images')) {
+        // Delete old images associated with the event
+        $blog->image()->delete();
+
+        // Upload and associate new images with the event
+        foreach ($request->file('images') as $image) {
+            // Store the image file in the storage directory and get its path
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images'), $imageName);
+
+            // Create a new EventImage record
+            $blogImage = new BlogImage();
+            $blogImage->blog_id = $blog->id; // Associate the image with the event
+            $blogImage->image_path = $imageName; // Store the file name without the directory prefix
+            $blogImage->save();
+        }
     }
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-        ]);
+
     
-        $blog = Blog::findOrFail($id);
-        $blog->update($request->all());
-    
-        return redirect()->route('blogsdashboard')->with('success', 'Blog updated successfully.');
-    }
-    
+    // Redirect back to the blog index page with success message
+    return redirect()->route('blogs.index')->with('success', 'Blog updated successfully.');
+}
+
 
     public function destroy($id)
     {
         $blog = Blog::findOrFail($id);
         $blog->delete();
 
-        return redirect()->route('blogsdashboard')->with('success', 'Blog deleted successfully.');
+        return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully.');
+    }
+
+    public function restore($id)
+    {
+        // Find the soft-deleted artwork by its ID
+        $event = Blog::withTrashed()->findOrFail($id);
+
+        // Restore the soft-deleted artwork
+        $event->restore();
+        return redirect()->back()->with('success', 'Blog restored successfully.');
     }
 
 

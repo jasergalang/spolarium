@@ -39,17 +39,23 @@
                             required>
                     </div>
                     <div class="mb-6">
-                        <label for="image" class="block text-gray-700 font-bold mb-2">Image</label>
-                        <input type="file" class="form-control rounded-md border-gray-300 w-full py-2 px-4 focus:outline-none focus:border-blue-400" id="image" name="image">
-                    </div>
+    <label for="image" class="block text-gray-700 font-bold mb-2">Images</label>
+    <input type="file" class="form-control rounded-md border-gray-300 w-full py-2 px-4 focus:outline-none focus:border-blue-400" id="image" name="images[]" multiple>
+</div>
+
                     <!-- Display existing image -->
                     <div class="mb-6">
                         <label for="existing_image" class="block text-gray-700 font-bold mb-2">Existing Image</label>
-                        @if ($event->image)
-                        <img src="{{ asset('images/'. ($event->image->first()->image_path))  }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px;">
-                        @else
-                        <p>No Image</p>
-                        @endif
+                        @if ($event->image->isNotEmpty())
+    <div style="display: flex;">
+        @foreach ($event->image as $image)
+            <img src="{{ asset('images/'. $image->image_path) }}" alt="{{ $event->title }}" style="max-width: 100px; max-height: 100px; margin-right: 10px;">
+        @endforeach
+    </div>
+@else
+    No Image
+@endif
+
                     </div>
                     <button type="submit"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update</button>

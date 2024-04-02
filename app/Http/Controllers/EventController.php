@@ -86,63 +86,57 @@ class EventController extends Controller
     // Update the specified event in the database
 
     public function update(Request $request, Event $event)
-{
-    $request->validate([
-        'title' => 'required',
-        'description' => 'required',
-        'location' => 'required',
-        'date' => 'required|date',
-        'time' => 'required',
-        'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
-
-    // Handle image upload if provided
-    if ($request->hasFile('image')) {
-        // Upload the new image
-        $newImagePath = $request->file('image')->store('event_images');
-
-        // Delete old image if exists
-        if ($event->image) {
-            Storage::delete($event->image->image_path);
+    {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'location' => 'required',
+            'date' => 'required|date',
+            'time' => 'required',
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        // Update event details
+        $event->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'location' => $request->location,
+            'date' => $request->date,
+            'time' => $request->time,
+        ]);
+    
+        if ($request->hasFile('images')) {
+            // Delete old images associated with the event
+            $event->image()->delete();
+    
+            // Upload and associate new images with the event
+            foreach ($request->file('images') as $image) {
+                // Store the image file in the storage directory and get its path
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('images'), $imageName);
+    
+                // Create a new EventImage record
+                $eventImage = new EventImage();
+                $eventImage->event_id = $event->id; // Associate the image with the event
+                $eventImage->image_path = $imageName; // Store the file name without the directory prefix
+                $eventImage->save();
+            }
         }
-
-        // Update or create a new record in event_images table for the new image
-        $eventImage = EventImage::updateOrCreate(
-            ['event_id' => $event->id],
-            ['image_path' => $newImagePath]
-        );
+    
+        return redirect()->route('event.index')->with('success', 'Event updated successfully');
     }
-
-    // Update event details
-    $event->title = $request->title;
-    $event->description = $request->description;
-    $event->location = $request->location;
-    $event->date = $request->date;
-    $event->time = $request->time;
-
-    // Save changes
-    $event->save();
-
-    return redirect()->route('event.index')->with('success', 'Event updated successfully');
-}
+    
+    
 
     // Remove the specified event from the database
 
-    public function destroy(Event $event)
+    public function destroy($id)
     {
-        // Delete associated event image record
-        if ($event->image) {
-            // Delete image file
-            Storage::delete('images/'. $event->image->image_path);
-            // Delete event image record
-            $event->image->delete();
-        }
 
-        // Delete the event
-        $event->delete();
-
-        return redirect()->route('event.index')
-            ->with('success', 'Event deleted successfully');
+            $event = Event::findOrFail($id);
+            $event->delete();
+    
+            return redirect()->route('event.index')->with('success', 'Blog deleted successfully.');
     }
     public function restore($id)
     {
