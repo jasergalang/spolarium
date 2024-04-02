@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{
-    User, Artist, Customer};
+    User, Artist, Customer, Cart};
     use App\Mail\RegisterUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -31,33 +31,42 @@ class AuthController extends Controller
 
     public function cusRegister(Request $request)
     {
-           $this->validateRegistration($request, 'customer');
-           $validatedData = $request->only(['fname', 'lname', 'email', 'contact', 'password']);
-           if ($request->hasFile('image_path')) {
-               $imagePath = $request->file('image_path')->store('images');
-               $imagePath = str_replace('public/', 'storage/', $imagePath);
-           }
-           $data = [
-               'fname' => $validatedData['fname'],
-               'lname' => $validatedData['lname'],
-               'email' => $validatedData['email'],
-               'contact' => $validatedData['contact'],
-               'password' => Hash::make($validatedData['password']),
-               'roles' => 'customer',
-               'status' => 'active',
-               'image_path' => $imagePath,
-           ];
+        $this->validateRegistration($request, 'customer');
+        $validatedData = $request->only(['fname', 'lname', 'email', 'contact', 'password']);
 
-           $user = User::create($data);
-           if (!$user) {
-               return redirect(route('artregister'))->with("fail", "Registration Failed!! Please Try Again.");
-           }
-           $customer = new Customer(['user_id' => $user->id]);
-           $customer->save();
-           $user->sendEmailVerificationNotification();
+        // Process image upload
+        if ($request->hasFile('image_path')) {
+            $imagePath = $request->file('image_path')->store('images');
+            $imagePath = str_replace('public/', 'storage/', $imagePath);
+        }
 
-           return redirect(route('login'))->with("success", "Registration Successful!!");
+        // Create a new user
+        $user = User::create([
+            'fname' => $validatedData['fname'],
+            'lname' => $validatedData['lname'],
+            'email' => $validatedData['email'],
+            'contact' => $validatedData['contact'],
+            'password' => Hash::make($validatedData['password']),
+            'roles' => 'customer',
+            'status' => 'active',
+            'image_path' => $imagePath ?? null,
+        ]);
+
+        if (!$user) {
+            return redirect(route('cusregister'))->with("fail", "Registration Failed!! Please Try Again.");
+        }
+
+        $customer = new Customer(['user_id' => $user->id]);
+        $customer->save();
+
+        $cart = new Cart(['customer_id' => $customer->id]);
+        $cart->save();
+
+        $user->sendEmailVerificationNotification();
+
+        return redirect(route('login'))->with("success", "Registration Successful!!");
     }
+
     function artRegister(Request $request)
     {
        $this->validateRegistration($request, 'artist');

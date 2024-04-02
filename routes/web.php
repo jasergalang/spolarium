@@ -7,6 +7,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\Auth\LoginController;
@@ -126,7 +127,11 @@ Route::put('/user/{id}/restore', [UserController::class, 'restore'])->name('user
 
 
 //CartCrud
-Route::post('/cart/store', [CartController::class, 'store'])->name('cart.store');
+Route::post('/placeorder', [CartController::class, 'placeorder'])->name('order.store');
+
+Route::post('/cart/add-artwork', [CartController::class, 'addArtworkToCart'])->name('cart.addArtwork');
+Route::post('/cart/add-material', [CartController::class, 'addMaterialToCart'])->name('cart.addMaterial');
+Route::put('/cart/material/{materialId}', [CartController::class, 'updateMaterialQuantity'])->name('cart.updateMaterialQuantity');
 Route::get('/cart/index', [CartController::class, 'index'])->name('cart.index');
 Route::delete('/cart/{id}/material',  [CartController::class, 'destroyMaterial'])->name('cart.material.destroy');
 Route::delete('/cart/{id}/artwork',  [CartController::class, 'destroyArtwork'])->name('cart.artwork.destroy');
