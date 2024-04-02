@@ -9,28 +9,52 @@
     <h1 class="text-3xl font-bold mb-8">Checkout</h1>
     <form action="/checkout" method="post">
         @csrf
-        <!-- Billing Information -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-xl font-semibold mb-4">Billing Information</h2>
-            <!-- Name -->
-            <div class="mb-4">
-                <label for="name" class="block text-gray-700">Name</label>
-                <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
+        <!-- Billing and Shipping Information -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Billing Information -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-semibold mb-4">Billing Information</h2>
+                <!-- Name -->
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700">Name</label>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" disabled>
+                </div>
+                <!-- Email -->
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700">Email</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="example@example.com" disabled>
+                </div>
+                <!-- Contact -->
+                <div class="mb-4">
+                    <label for="contact" class="block text-gray-700">Contact</label>
+                    <input type="text" id="contact" name="contact" class="form-input" placeholder="Phone number" disabled>
+                </div>
             </div>
-            <!-- Email -->
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700">Email</label>
-                <input type="email" id="email" name="email" class="form-input" placeholder="example@example.com" required>
-            </div>
-            <!-- Address -->
-            <div class="mb-4">
-                <label for="address" class="block text-gray-700">Address</label>
-                <textarea id="address" name="address" class="form-textarea" rows="3" placeholder="123 Main St, City, Country" required></textarea>
+            <!-- Shipping Information -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-semibold mb-4">Shipping Information</h2>
+                <!-- Shipping Address -->
+                <div class="mb-4">
+                    <label for="shipping_address" class="block text-gray-700">Shipping Address</label>
+                    <textarea id="shipping_address" name="shipping_address" class="form-textarea" rows="3" placeholder="123 Main St, City, Country" required></textarea>
+                </div>
             </div>
         </div>
         <!-- Payment Information -->
         <div class="bg-white rounded-lg shadow-md p-6 mb-6">
             <h2 class="text-xl font-semibold mb-4">Payment Information</h2>
+            <!-- Payment Method Dropdown -->
+            <div class="mb-4">
+                <label for="payment_method" class="block text-gray-700">Payment Method</label>
+                <select id="payment_method" name="payment_method" class="form-select" required>
+                    <option value="credit_card">Credit Card</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bdo">BDO</option>
+                    <option value="gcash">Gcash</option>
+                    <option value="paymaya">PayMaya</option>
+                    <option value="coins.ph">Coins.ph</option>
+                </select>
+            </div>
             <!-- Card Number -->
             <div class="mb-4">
                 <label for="card_number" class="block text-gray-700">Card Number</label>

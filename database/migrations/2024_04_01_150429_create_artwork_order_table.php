@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('artwork_id')->constrained('artworks')->onDelete('cascade');
             $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->unsignedInteger('quantity')->default(1);
             $table->timestamps();
         });
     }

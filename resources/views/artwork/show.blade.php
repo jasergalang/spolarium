@@ -27,13 +27,20 @@
                                     <p class="mt-2 text-gray-500"><strong>Categories:</strong> {{ $artwork->category }}</p>
                                     <p class="mt-2 text-gray-500"><strong>Size:</strong> {{ $artwork->size }}</p>
                                     <div class="mt-4">
-                                        <form action="{{ route('cart.store') }}" method="POST">
+                                        <form action="{{ route('cart.addArtwork') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="artwork_id" value="{{ $artwork->id }}">
-                                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                                Add to Cart
-                                            </button>
+                                            @if(!$customer->cart->artwork()->where('artwork_id', $artwork->id)->exists())
+                                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                    Add to Cart
+                                                </button>
+                                            @else
+                                                <button type="button" class="bg-gray-400 text-white font-bold py-2 px-4 rounded cursor-not-allowed" disabled>
+                                                    Already in Cart
+                                                </button>
+                                            @endif
                                         </form>
+
                                     </div>
                                 </div>
                             </div>

@@ -25,7 +25,7 @@
                             <p class="mt-2 text-gray-500"><strong>Description:</strong> {{ $material->desc }}</p>
                             <p class="mt-2 text-gray-500"><strong>Category:</strong> {{ $material->category }}</p>
                             <p class="mt-2 text-gray-500"><strong>Status:</strong> {{ $material->status }}</p>
-                            <form action="{{ route('cart.store') }}" method="POST">
+                            <form action="{{ route('cart.addMaterial') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="material_id" value="{{ $material->id }}">
                                 <div class="mt-2">
@@ -33,11 +33,18 @@
                                     <input type="number" id="quantity_{{ $material->id }}" name="quantity_{{ $material->id }}" value="1" min="1" class="w-20 px-2 py-1 border rounded-md">
                                 </div>
                                 <div class="mt-4">
-                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                        Add to Cart
-                                    </button>
+                                    @if(!$customer->cart->material()->where('material_id', $material->id)->exists())
+                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            Add to Cart
+                                        </button>
+                                    @else
+                                        <button type="button" class="bg-gray-400 text-white font-bold py-2 px-4 rounded cursor-not-allowed" disabled>
+                                            Already in Cart
+                                        </button>
+                                    @endif
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>
