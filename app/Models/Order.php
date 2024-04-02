@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['customer_id', 'payment_method', 'shipping_address', 'status'];
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'order_id');
@@ -17,5 +17,9 @@ class Order extends Model
     public function artwork(){
 
         return $this->belongsToMany(Artwork::class, 'artwork_order', 'artwork_id', 'order_id');
+    }
+    public function material(){
+
+        return $this->belongsToMany(Material::class, 'material_order', 'material_id', 'order_id');
     }
 }

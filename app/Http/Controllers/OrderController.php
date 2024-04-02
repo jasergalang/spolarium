@@ -28,29 +28,39 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+
         $userId = Auth::id();
 
         $customer = Customer::where('user_id', $userId)->first();
         $customerId = $customer->id;
 
         $order = Order::firstOrCreate(['customer_id' => $customerId]);
+        $validatedData = $request->validate([
+            'shipping_address' => 'required|string|max:255',
+            'payment_method' => 'required|string|in:credit_card,paypal,bdo,gcash,paymaya,coins.ph',
+            // Add validation rules for other fields as needed
+        ]);
 
-    $order->shipping_address = $request->input('shipping_address');
-    $order->payment_method = $request->input('payment_method');
-    $order->status = 'pending'; // Set the initial status as pending
-    $order->save();
+        // Once validated, you can access the data from $validatedData array
+        $shippingAddress = $validatedData['shipping_address'];
+        $paymentMethod = $validatedData['payment_method'];
 
-    // Retrieve material quantities from the input fields
-    $materialQuantities = $request->input('material_quantities');
-    foreach ($materialQuantities as $materialId => $quantity) {
-        if ($quantity > 0) {
-            // Insert ordered material into material_order pivot table
-            $order->materials()->attach($materialId, ['quantity' => $quantity]);
-            // Update material stock
-            $material = Material::findOrFail($materialId);
-            $material->stock -= $quantity;
-            $material->save();
-        }
+        $order->shipping_address = $shippingAddress;
+        $order->payment_method =  $paymentMethod ;
+        $order->status = 'pending'; // Set the initial status as pending
+        $order->save();
+
+        // Retrieve material quantities from the input fields
+        $materialQuantities = $request->input('material_quantities');
+        foreach ($materialQuantities as $materialId => $quantity) {
+            if ($quantity > 0) {
+                // Insert ordered material into material_order pivot table
+                $order->materials()->attach($materialId, ['quantity' => $quantity]);
+                // Update material stock
+                $material = Material::findOrFail($materialId);
+                $material->stock -= $quantity;
+                $material->save();
+            }
     }
 
     // Retrieve artwork quantities from the input fields
@@ -61,6 +71,7 @@ class OrderController extends Controller
             $order->artworks()->attach($artworkId, ['quantity' => $quantity]);
         }
     }
+    return redirect()->back()->with('success', 'Order placed successfully!');
     }
 
     /**

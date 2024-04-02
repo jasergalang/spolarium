@@ -41,18 +41,15 @@
         </div>
 
         <!-- Description -->
-        <div class="p-6 bg-white hover:scale-105 hover:shadow-2xl rounded-2xl transition mx-5">
-            <div class="text-lg font-bold mb-4 border-b">Description</div>
-            <div class="mx-5 my-10">
-                <div class="text-base font-semibold">Description:</div>
-                <div class="flex items-center py-5">
-                    <i class="fa-solid fa-peso-sign"></i>
-                    <input type="text" name="desc" placeholder="Enter material description" class="rounded-md border border-gray-300 ml-5 w-full">
+        <div class="p-6 bg-white hover:scale-105 hover:shadow-2xl rounded-2xl transition">
+                <div class="text-lg font-bold mb-4 border-b">Description</div>
+                <div class="mx-5 my-10">
+                    <div class="text-base font-semibold">Description:</div>
+                    <div class="flex items-center py-5">
+                        <input type="description" name="desc" placeholder="Enter material description" class="rounded-md border border-gray-300 w-full">
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-
 
     <!-- Category -->
     <div class="p-6 bg-white hover:scale-105 hover:shadow-2xl rounded-2xl transition mx-5">

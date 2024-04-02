@@ -17,6 +17,10 @@ class Material extends Model
     }
     public function cart(){
 
-        return $this->belongsToMany(Cart::class, 'cart_material', 'cart_id', 'materialc_id');
+        return $this->belongsToMany(Cart::class, 'cart_material', 'cart_id', 'material_id');
+    }
+    public function order(){
+
+        return $this->belongsToMany(Cart::class, 'material_order', 'order_id', 'material_id');
     }
 }
