@@ -12,9 +12,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $orders = Order::all();
 
+        // Pass the orders data to a view
+        return view('order.index', ['orders' => $orders]);
+    }
     /**
      * Show the form for creating a new resource.
      */

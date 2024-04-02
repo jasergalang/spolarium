@@ -1,8 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-@include('layout.artHeader')
-@include('layout.artNav')
+@include('layout.adminNav')
 <form method="POST" action="{{ route('event.store') }}" enctype="multipart/form-data">
         @csrf
 <div class="container py-6 space-y-5 bg-white">

@@ -49,7 +49,7 @@ Route::get('/home', function () {
     return view('home');
 });
 
-
+Route::get('/charts', [ChartController::class, 'index'])->name('charts.index');
 Route::get('/cart', function () {
     return view('cart.cartform');
 });
@@ -125,6 +125,10 @@ Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update')
 Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 Route::put('/user/{id}/restore', [UserController::class, 'restore'])->name('user.restore');
 
+//order
+Route::get('/order/index', [OrderController::class, 'index'])->name('order.index');
+
+Route::delete('/order/{id}', [OrderController::class, 'destroy'])->name('order.destroy');
 
 //CartCrud
 Route::post('/placeorder', [CartController::class, 'placeorder'])->name('order.store');
@@ -152,4 +156,4 @@ Route::get('/email/verify', [VerificationController::class, 'sendVerificationEma
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
 
 //charts
-Route::get('/chart', [ChartController::class, 'index']);
+// Route::get('/chart', [ChartController::class, 'index']);

@@ -6,13 +6,13 @@
             <h1 class="text-gray-700 hover:text-red-500 transision">Spolarium</h1>
         </a>
         {{-- search area --}}
-        <div class="w-full max-w-xl relative flex">
+        {{-- <div class="w-full max-w-xl relative flex">
             <span class="absolute left-4 top-3 text-lg text-gray-400">
                 <i class="fas fa-search"></i>
             </span>
             <input type="text" class="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-1-md focus:outline-none" placeholder="Search">
             <button class="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition">Search</button>
-        </div>
+        </div> --}}
         {{-- yung icons --}}
         <div class="flex items-center space-x-4">
             {{-- account button --}}

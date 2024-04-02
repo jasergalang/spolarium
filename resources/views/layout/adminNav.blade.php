@@ -54,22 +54,18 @@
          {{-- navbar links --}}
          <div class="flex items-center justify-between flex-grow pl-12">
              <div class="flex items-center space-x-6 capitalize">
-                 <a href="{{ route('artwork.dashboard') }}"class="text-gray-200 hover:underline hover:text-white transition">HomeDashboard</a>
                  <a href="{{ route('material.dashboard') }}"class="text-gray-200 hover:underline hover:text-white transition">MaterialDashboard</a>
-                 <a href="{{ route('artwork.create') }}" class="text-gray-200 hover:underline hover:text-white transition">Artworks</a>
                  <a href="{{ route('material.create') }}" class="text-gray-200 hover:underline hover:text-white transition">Materials</a>
-                 <a href="" class="text-gray-200 hover:underline hover:text-white transition">Purchases</a>
-                 <a href="{{ route('artwork.dashboard') }}"class="text-gray-200 hover:underline hover:text-white transition">Artworks Recycle Bin</a>
-                 <a href="" class="text-gray-200 hover:underline hover:text-white transition">Profile</a>
+                 <a href="{{ route('event.index') }}"class="text-gray-200 hover:underline hover:text-white transition">EventsDashboard</a>
+                 <a href="{{ route('event.create') }}" class="text-gray-200 hover:underline hover:text-white transition">Events</a>
              </div>
              {{-- login and register --}}
-             <a href="" class="text-gray-200 hover:underline hover:text-white transition">Login/Register</a>
              {{-- end of login and register --}}
          </div>
          {{-- end of navbar links --}}
          @auth
          <!-- Show links for authenticated users -->
-         <a href="{{ route('logout') }}" class="text-center text-gray-700 hover:text-primary transition relative hover:scale-105">
+         <a href="{{ route('logout') }}" class="text-center text-gray-100 hover:text-primary transition relative hover:scale-105">
              <div class="text-xl">
                  <i class="fa-solid fa-right-from-bracket"></i>
              </div>
@@ -77,7 +73,7 @@
          </a>
      @else
          <!-- Show links for guests (unauthenticated users) -->
-         <a href="{{ route('login') }}" class="text-center text-gray-700 hover:text-primary transition relative">
+         <a href="{{ route('login') }}" class="text-center text-gray-100 hover:text-primary transition relative">
              <div class="text-2xl">
                  <i class="fa-solid fa-right-from-bracket"></i>
              </div>
@@ -85,5 +81,6 @@
          </a>
      @endauth
     </div>
+
 </div>
 {{-- end of navbar --}}

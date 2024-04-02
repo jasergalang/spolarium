@@ -13,7 +13,10 @@ class Order extends Model
     {
         return $this->belongsTo(Customer::class, 'order_id');
     }
-
+    public function review()
+    {
+        return $this->hasMany(Review::class, 'order_id');
+    }
     public function artwork(){
 
         return $this->belongsToMany(Artwork::class, 'artwork_order', 'artwork_id', 'order_id');
