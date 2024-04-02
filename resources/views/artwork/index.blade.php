@@ -1,6 +1,5 @@
 <div class="container mb-10 grid grid-cols-3 gap-3">
     @foreach($artworks as $artwork)
-
         <div class="bg-white shadow rounded overflow-hidden group">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
@@ -31,7 +30,6 @@
         </div>
     @endforeach
 </div>
-
 <!-- Swiper CSS -->
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <!-- Swiper JS -->
