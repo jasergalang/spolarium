@@ -85,6 +85,7 @@ Route::put('events/{id}/restore', [EventController::class, 'restore'])->name('ev
 //BlogsCrud
 Route::get('/blog/dashboard', [BlogController::class, 'dashboard'])->name('blogs.dashboard');
 Route::get('/blog/index', [BlogController::class, 'index'])->name('blogs.index');
+Route::get('/blog/show', [BlogController::class, 'showBlogs'])->name('blogs.show');
 Route::get('/blog/create', [BlogController::class, 'create'])->name('blogs.create');
 Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');
 Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
@@ -123,6 +124,8 @@ Route::get('/user/{id}', [UserController::class, 'show'])->name('user.show');
 Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
 Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
 Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+Route::delete('/user/{id}/deactivate', [UserController::class, 'destroyforuser'])->name('user.destroyforuser');
+
 Route::put('/user/{id}/restore', [UserController::class, 'restore'])->name('user.restore');
 
 //order
