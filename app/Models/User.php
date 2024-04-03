@@ -9,7 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderReceipt;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -55,5 +56,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function artist()
     {
         return $this->hasOne(Customer::class, 'user_id');
+    }
+    public function sendEmailOrderReceiptNotification($order)
+    {
+        Mail::to($this->email)->send(new OrderReceipt($order));
     }
 }

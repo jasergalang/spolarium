@@ -132,22 +132,24 @@ class CartController extends Controller
     }
     public function placeorder(Request $request)
     {
-
         $userId = Auth::id();
-
+    
+        // Retrieve the customer associated with the user
         $customer = Customer::where('user_id', $userId)->first();
         $customerId = $customer->id;
-
+    
+        // Validate the request data
         $validatedData = $request->validate([
             'shipping_address' => 'required|string|max:255',
             'payment_method' => 'required|string|in:credit_card,paypal,bdo,gcash,paymaya,coins.ph',
         ]);
-
+    
         $shippingAddress = $validatedData['shipping_address'];
         $paymentMethod = $validatedData['payment_method'];
-
+    
+        // Retrieve the order for the customer
         $order = Order::where('customer_id', $customerId)->first();
-
+    
         // If no order exists, create a new one
         if (!$order) {
             $order = new Order();
@@ -157,40 +159,41 @@ class CartController extends Controller
             $order->payment_method = $paymentMethod;
             $order->save();
         }
-
+    
         // Retrieve material quantities from the input fields
         $artworkQuantities = session('artwork_quantities');
         $materialQuantities = session('material_quantities');
-
-
-            foreach ($materialQuantities as $materialId => $quantity) {
-                if ($quantity > 0) {
-                    // Insert ordered material into material_order pivot table
-                    $order->material()->attach($materialId, ['quantity' => $quantity]);
-                    // Update material stock
-                    $material = Material::findOrFail($materialId);
-                    $material->stock -= $quantity;
-                    $material->save();
-                }
+    
+        foreach ($materialQuantities as $materialId => $quantity) {
+            if ($quantity > 0) {
+                // Insert ordered material into material_order pivot table
+                $order->material()->attach($materialId, ['quantity' => $quantity]);
+                // Update material stock
+                $material = Material::findOrFail($materialId);
+                $material->stock -= $quantity;
+                $material->save();
             }
-
-
+        }
+    
         // Retrieve artwork quantities from the input fields
-            foreach ($artworkQuantities as $artworkId => $quantity) {
-                if ($quantity > 0) {
-                    // Insert ordered artwork into artwork_order pivot table
-                    $order->artwork()->attach($artworkId, ['quantity' => $quantity]);
-                }
+        foreach ($artworkQuantities as $artworkId => $quantity) {
+            if ($quantity > 0) {
+                // Insert ordered artwork into artwork_order pivot table
+                $order->artwork()->attach($artworkId, ['quantity' => $quantity]);
             }
-            $userEmail = User::find($userId)->email;
-
-            // Send the order receipt email to the user's email address
-            Mail::to($userEmail)->send(new OrderReceipt($order));
-            return view('order_receipt', ['order' => $order]);
-            return redirect()->back()->with('success', 'Order placed successfully! An email receipt has been sent.');
+        }
+    
+        // Retrieve the email of the authenticated user
+        $userEmail = User::find($userId)->email;
+    
+        // Retrieve the authenticated user
+        $user = User::find($userId);
+    
+        // Send the order receipt email to the user's email address
+        $user->sendEmailOrderReceiptNotification($order);
+    
         return redirect()->back()->with('success', 'Order placed successfully!');
-    }
-    /**
+    }    /**
      * Display the specified resource.
      */
     public function show(string $id)
