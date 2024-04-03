@@ -13,13 +13,14 @@ use Illuminate\Queue\SerializesModels;
 class OrderReceipt extends Mailable
 {
     use Queueable, SerializesModels;
-    public $order;
+    public $user;
     /**
      * Create a new message instance.
      */
-    public function __construct(Order $order)
+    public function __construct( $user)
     {
-        $this->order = $order;
+        $this->user = $user;
+
     }
 
     /**

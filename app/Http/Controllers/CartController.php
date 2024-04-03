@@ -124,15 +124,14 @@ class CartController extends Controller
         $cart->material()->attach($materialId, ['quantity' => $quantity, 'created_at' => now(), 'updated_at' => now()]);
 
         // Update material stock
-        $material = Material::findOrFail($materialId);
-        $material->stock -= $quantity;
-        $material->save();
+        // $material = Material::findOrFail($materialId);
+        // $material->stock -= $quantity;
+        // $material->save();
 
         return redirect()->back()->with('success', 'Material added to cart successfully.');
     }
     public function placeorder(Request $request)
     {
-
         $userId = Auth::id();
 
         $customer = Customer::where('user_id', $userId)->first();
@@ -146,50 +145,44 @@ class CartController extends Controller
         $shippingAddress = $validatedData['shipping_address'];
         $paymentMethod = $validatedData['payment_method'];
 
-        $order = Order::where('customer_id', $customerId)->first();
-
-        // If no order exists, create a new one
-        if (!$order) {
-            $order = new Order();
-            $order->customer_id = $customerId;
-            $order->status = 'pending';
-            $order->shipping_address = $shippingAddress;
-            $order->payment_method = $paymentMethod;
-            $order->save();
-        }
+        // Create a new order for the customer
+        $order = new Order();
+        $order->customer_id = $customerId;
+        $order->status = 'pending';
+        $order->shipping_address = $shippingAddress;
+        $order->payment_method = $paymentMethod;
+        $order->save();
 
         // Retrieve material quantities from the input fields
-        $artworkQuantities = session('artwork_quantities');
         $materialQuantities = session('material_quantities');
-
-
-            foreach ($materialQuantities as $materialId => $quantity) {
-                if ($quantity > 0) {
-                    // Insert ordered material into material_order pivot table
-                    $order->material()->attach($materialId, ['quantity' => $quantity]);
-                    // Update material stock
-                    $material = Material::findOrFail($materialId);
-                    $material->stock -= $quantity;
-                    $material->save();
-                }
+        foreach ($materialQuantities as $materialId => $quantity) {
+            if ($quantity > 0) {
+                // Insert ordered material into material_order pivot table
+                $order->material()->attach($materialId, ['quantity' => $quantity]);
+                // Update material stock
+                $material = Material::findOrFail($materialId);
+                $material->stock -= $quantity;
+                $material->save();
             }
-
+        }
 
         // Retrieve artwork quantities from the input fields
-            foreach ($artworkQuantities as $artworkId => $quantity) {
-                if ($quantity > 0) {
-                    // Insert ordered artwork into artwork_order pivot table
-                    $order->artwork()->attach($artworkId, ['quantity' => $quantity]);
-                }
-            }
-            $userEmail = User::find($userId)->email;
+        $artworkQuantities = session('artwork_quantities');
+        foreach ($artworkQuantities as $artworkId => $quantity) {
+            if ($quantity > 0) {
+                // Insert ordered artwork into artwork_order pivot table
+                $order->artwork()->attach($artworkId, ['quantity' => $quantity]);
 
-            // Send the order receipt email to the user's email address
-            Mail::to($userEmail)->send(new OrderReceipt($order));
-            return view('order_receipt', ['order' => $order]);
-            return redirect()->back()->with('success', 'Order placed successfully! An email receipt has been sent.');
+                // Update artwork status to 'sold'
+                $artwork = Artwork::findOrFail($artworkId);
+                $artwork->status = 'sold';
+                $artwork->save();
+            }
+        }
+
         return redirect()->back()->with('success', 'Order placed successfully!');
     }
+
     /**
      * Display the specified resource.
      */
