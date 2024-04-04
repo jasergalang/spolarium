@@ -2,8 +2,8 @@
 @extends('layout.layout')
 
 @section('content')
-@include('layout.artHeader')
-@include('layout.artNav')
+
+@include('layout.adminNav')
 {{--  --}}
 <form method="POST" action="{{ route('material.store') }}" enctype="multipart/form-data">
     @csrf

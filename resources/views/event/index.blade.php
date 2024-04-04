@@ -1,7 +1,7 @@
     @extends('layout.layout')
 
     @section('content')
-        @include('layout.admintNav')
+        @include('layout.adminNav')
 
         <div class="container mx-auto mt-8">
             <!-- Artworks Table -->

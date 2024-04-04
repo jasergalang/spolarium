@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{
-    User, Artist, Customer, Cart};
+    User, Artist, Customer, Cart, Artwork, Material};
     use App\Mail\RegisterUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -135,12 +135,10 @@ class AuthController extends Controller
                        return redirect()->route('home')->with('customer_id', $user->id);
                    }
                    break;
-            //    case 'admin':
-            //        $administrator = Artist::where('account_id', $account->id)->first();
-            //        if ($administrator) {
-            //            return redirect()->route('adminManagement')->with('administratorID', $administrator->id);
-            //        }
-            //        break;
+                   case 'admin':
+                    return redirect()->route('event.index');
+                    break;
+
                default:
                    return back()->withInput()->withErrors(['email' => 'Invalid user role.']);
            }
@@ -172,6 +170,24 @@ function logout()
     {
         $user = auth()->user();
         return view('user.show', compact('user'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Search for artworks
+        $artwork = Artwork::where('name', 'like', "%$query%")
+                            ->orWhere('desc', 'like', "%$query%")
+                            ->get();
+
+        // Search for materials
+        $material = Material::where('name', 'like', "%$query%")
+                            ->orWhere('desc', 'like', "%$query%")
+                            ->get();
+
+      return redirect()->back()->with(compact('artwork', 'material'));
+
     }
 
 }

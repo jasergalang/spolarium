@@ -18,9 +18,9 @@
                         {{-- account button --}}
 
 
-                        <a href="home" class="text-gray-100 hover:underline hover:text-red-500 hover:scale-105 transition">Home</a>
-                        <a href="{{ route('artwork.index') }}" class="text-gray-100 hover:underline hover:text-red-500 pl-12 hover:scale-105 transition">Artworks</a>
-                        <a href="{{ route('material.index') }}" class="text-gray-100 hover:underline hover:text-red-500 pl-12 hover:scale-105 transition">Materials</a>
+                        <a href="{{ route('home') }}" class="text-gray-100 hover:underline hover:text-red-500 hover:scale-105 transition">Home</a>
+                        <a href="{{ route('artwork.homeArtwork') }}" class="text-gray-100 hover:underline hover:text-red-500 pl-12 hover:scale-105 transition">Artworks</a>
+                        <a href="{{ route('material.homeMaterial') }}" class="text-gray-100 hover:underline hover:text-red-500 pl-12 hover:scale-105 transition">Materials</a>
                         {{-- <a href="#" class="text-gray-700 hover:underline hover:text-red-500 pl-12 hover:scale-105 transition">About us</a> --}}
                         @include('layout.message')
                         {{-- listing a property button --}}

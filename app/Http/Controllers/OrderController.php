@@ -14,9 +14,11 @@ class OrderController extends Controller
     {
         $orders = Order::all();
 
-        // Pass the orders data to a view
         return view('order.index', ['orders' => $orders]);
     }
+
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -79,9 +81,36 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
+
+     public function updateStatus(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+        // Check which button is clicked
+        if ($request->has('delivered')) {
+            $order->status = 'Delivered';
+        } elseif ($request->has('cancelled')) {
+            $order->status = 'Cancelled';
+        }
+
+        $order->save();
+
+        return redirect()->back()->with('success', 'Order status updated successfully.');
+    }
+
     public function show(string $id)
     {
-        //
+        $userId = Auth::id();
+        $customer = Customer::where('user_id', $userId)->first();
+
+        if (!$customer) {
+            abort(404, 'Customer not found.');
+        }
+
+        $customerId = $customer->id;
+        $orders = Order::where('customer_id', $customerId)->get();
+
+        return view('order.show', ['orders' => $orders]);
     }
 
     /**

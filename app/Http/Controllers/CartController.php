@@ -191,7 +191,12 @@ class CartController extends Controller
         $user = User::find($userId);
 
         $user->sendEmailOrderReceiptNotification($order);
+        $customer->cart->artwork()->detach();
+        $customer->cart->material()->detach();
 
+        // Clear the session data for cart items
+        session()->forget('artwork_quantities');
+        session()->forget('material_quantities');
         return redirect()->back()->with('success', 'Order placed successfully!');
     }
 

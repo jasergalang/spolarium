@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Customer;
 use App\Models\Material;
 use Illuminate\Http\Request;
 use App\Models\MaterialImage;
@@ -20,7 +21,13 @@ class MaterialController extends Controller
         return view('material.index', compact('materials'));
     }
 
-
+    public function homeMaterial()
+    {
+        $userId = Auth::id();
+        $customer = Customer::where('user_id', $userId)->first();
+        $materials = Material::with('image')->get();
+        return view('material.homeMaterial', compact('materials', 'customer'));
+    }
 
     public function create()
     {

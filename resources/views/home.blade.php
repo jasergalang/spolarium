@@ -95,6 +95,7 @@
         </div>
     </div>
 </div>
+
 {{-- End of Browse Art by Categories --}}
 <div class="container py-16">
 <h2 class="text-3xl font-medium text-gray-800 mb-6">Browse Artworks</h2>
@@ -152,4 +153,3 @@
         </script>
     @endif
 @endsection
-        

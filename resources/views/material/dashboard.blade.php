@@ -1,6 +1,5 @@
 @extends('layout.layout')
 @section('content')
-@include('layout.artHeader')
 @include('layout.adminNav')
 <!-- Main Content -->
 <div class="container mx-auto mt-8">
@@ -42,7 +41,7 @@
                         @csrf
                         @method('PUT')
                         <button type="submit" class="btn btn-sm btn-success me-2">
-                                                <i class="fas fa-trash-restore"></i> Restore 
+                                                <i class="fas fa-trash-restore"></i> Restore
                                             </button>
                     </form>
                 @else
