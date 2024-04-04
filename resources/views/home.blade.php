@@ -110,6 +110,25 @@
 {{-- @include('showmodal') --}}
 
 
+{{-- Art-related Q&A --}}
+<div class="bg-white pt-16 pb-12 border-t border-gray-100">
+    <div class="container grid grdi-cols-1 py-4">
+        <h3 class="text-black font-semibold text-xl py-5">Art: A Journey into Creativity</h3>
+        <p class="text-gray-800 font-medium text-justify">
+            Explore the world of art where creativity knows no bounds. Dive into the depths of imagination and emotion through the strokes of a brush or the lines of a sculpture.
+            <br><br>
+            Art transcends boundaries, offering a unique lens through which to view the world and understand the human experience. Join us on this journey of discovery and inspiration.
+        </p>
+
+        <h3 class="text-black font-semibold text-xl py-5">Art Rental: Bringing Masterpieces to Your Home</h3>
+        <p class="text-gray-800 font-medium text-justify">
+            Renting art allows you to bring the beauty of masterpieces into your home without the commitment of ownership. Whether you're looking to decorate your space or simply appreciate the work of talented artists, art rental offers a flexible and accessible way to enjoy art.
+            <br><br>
+            With a wide range of styles and mediums available for rent, you can curate your own personal gallery and rotate artworks to suit your mood and style. Experience the joy of living with art and let it inspire and enrich your life every day.
+        </p>
+    </div>
+</div>
+{{-- End of Art-related Q&A --}}
 
 @endsection
 

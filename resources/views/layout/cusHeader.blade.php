@@ -18,15 +18,14 @@
 
         {{-- yung icons --}}
         <div class="flex items-center space-x-4">
-    {{-- account button --}}
-    <a href="{{ route('user.edit', Auth::user()->id) }}" class="text-center text-gray-700 hover:text-primary transition relative">
-        <div class="text-2xl">
-            <i class="fas fa-user"></i>
+            {{-- account button --}}
+            <a href="" class="text-center text-gray-700 hover:text-primary transition relative">
+                <div class="text-2xl">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="text-sx leading-3">Account</div>
+            </a>
         </div>
-        <div class="text-sx leading-3">Account</div>
-    </a>
-</div>
-
 
 
         @auth

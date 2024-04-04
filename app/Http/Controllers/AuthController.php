@@ -111,8 +111,7 @@ class AuthController extends Controller
        ]);
 
    }
-
-   public function loginPost(Request $request)
+   function loginPost(Request $request)
    {
        $request->validate([
            'email' => 'required|email',
@@ -122,6 +121,7 @@ class AuthController extends Controller
        $credentials = $request->only('email', 'password');
        if (Auth::attempt($credentials)) {
            $user = Auth::user();
+<<<<<<< HEAD
 
            // Check if the user's account is active and email is verified
            if ($user->status === 'active' && $user->email_verified_at !== null) {
@@ -148,14 +148,42 @@ class AuthController extends Controller
            } elseif ($user->status === 'deactivated') {
                Auth::logout();
                return back()->withInput()->withErrors(['email' => 'Your account is deactivated.']);
+=======
+           $request->session()->regenerate();
+           switch ($user->roles) {
+               case 'artist':
+                   $artist = Artist::where('user_id', $user->id)->first();
+                   if ($artist) {
+                       return redirect()->route('artwork.dashboard')->with('artist_id', $user->id);
+                   }
+                   break;
+               case 'customer':
+                   $customer = Customer::where('user_id', $user->id)->first();
+                   if ($customer) {
+                       return redirect()->route('home')->with('customer_id', $user->id);
+                   }
+                   break;
+            //    case 'admin':
+            //        $administrator = Artist::where('account_id', $account->id)->first();
+            //        if ($administrator) {
+            //            return redirect()->route('adminManagement')->with('administratorID', $administrator->id);
+            //        }
+            //        break;
+               default:
+                   return back()->withInput()->withErrors(['email' => 'Invalid user role.']);
+>>>>>>> parent of bb8eea6 (deactivate with auth emails)
            }
+           return back()->withInput()->withErrors(['email' => 'Invalid user role.']);
        }
 
        return back()->withInput()->withErrors(['email' => 'Invalid email or password.']);
    }
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> parent of bb8eea6 (deactivate with auth emails)
 
    public function verify($token)
 {
