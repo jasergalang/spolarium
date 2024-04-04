@@ -53,7 +53,7 @@
                 <button type="button" class="btn btn-secondary" onclick="closeMaterialModal('{{ $material->id }}')">Close</button>
             </div>
         </div>
-    </div>
+    </div>c
 </div>
 
 {{-- JavaScript to handle modal --}}

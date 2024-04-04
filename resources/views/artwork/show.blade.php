@@ -32,13 +32,19 @@
                                         <form action="{{ route('cart.addArtwork') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="artwork_id" value="{{ $artwork->id }}">
-                                            @if(!$customer->cart->artwork()->where('artwork_id', $artwork->id)->exists())
-                                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                                    Add to Cart
-                                                </button>
+                                            @if($artwork->status == 'available')
+                                                @if(!$customer->cart->artwork()->where('artwork_id', $artwork->id)->exists())
+                                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                        Add to Cart
+                                                    </button>
+                                                @else
+                                                    <button type="button" class="bg-gray-400 text-white font-bold py-2 px-4 rounded cursor-not-allowed" disabled>
+                                                        Already in Cart
+                                                    </button>
+                                                @endif
                                             @else
                                                 <button type="button" class="bg-gray-400 text-white font-bold py-2 px-4 rounded cursor-not-allowed" disabled>
-                                                    Already in Cart
+                                                   Already Sold
                                                 </button>
                                             @endif
                                         </form>

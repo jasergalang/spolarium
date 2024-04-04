@@ -38,7 +38,7 @@ class CartController extends Controller
 
             }
 
-            return view('cart.index', compact('cart', 'totalPrice', 'totalPrice1', 'materialQuantities', 'artworkQuantities'));
+            return view('cart.index', compact('cart', 'totalPrice', 'totalPrice1', 'materialQuantities', 'artworkQuantities', 'customer'));
 
         }
 

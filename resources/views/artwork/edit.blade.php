@@ -1,8 +1,6 @@
 @extends('layout.layout')
 
 @section('content')
-@include('layout.artHeader')
-@include('layout.artNav')
 
 <form method="POST" action="{{ route('artwork.update', $artwork->id) }}" enctype="multipart/form-data">
     @csrf
@@ -83,7 +81,7 @@
 
         <div class="text-lg font-bold mb-5 my-10 mx-20 border-b">Existing Photos:</div>
 
-        <div id="imageContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div id="imageContainer" class="grid grid-cols-1e sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             @foreach ($artwork->image as $images)
             <img src="{{ asset('/images/' . $images->image_path) }}" alt="Artwork Image">
             @endforeach
@@ -93,6 +91,7 @@
         <button id="submitartworkdetails" class="uppercase bg-gray-700 hover:bg-red-500 border hover:border-red-500 text-white hover:text-white hover:scale-105 transition font-bold py-2 px-4 w-full h-24 rounded-md my-10 mx-auto block">
             Update Artwork
         </button>
+        <a href="{{ route('artwork.dashboard') }}" class="button">Go Back</a>
     </div>
 </form>
 @endsection

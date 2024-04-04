@@ -26,12 +26,15 @@
                 <td class="text-center">
                     <form action="{{ route('orders.updateStatus', $order->id) }}" method="post">
                         @csrf
+                        @if($order->status != 'Delivered')
                         <button type="submit" name="delivered" class="uppercase bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md">
                             Delivered
                         </button>
+
                         <button type="submit" name="cancelled" class="uppercase bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md">
                             Cancelled
                         </button>
+                        @endif
                     </form>
                     <a href="#showorderModal" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showorderModal"><i class="fas fa-edit"></i> View Reviews</a>
 

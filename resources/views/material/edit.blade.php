@@ -2,8 +2,7 @@
 @extends('layout.layout')
 
 @section('content')
-@include('layout.artHeader')
-@include('layout.artNav')
+
 {{--  --}}
 <form method="POST" action="{{ route('material.update', $material->id) }}" enctype="multipart/form-data">
     @csrf
@@ -95,6 +94,8 @@
         <button id="submitartworkdetails" class="uppercase bg-gray-700 hover:bg-red-500 border hover:border-red-500 text-white hover:text-white hover:scale-105 transition font-bold py-2 px-4 w-full h-24 rounded-md my-10 mx-auto block">
             Create Art Materials
         </button>
+
+        <a href="{{ route('material.dashboard') }}" class="button">Go Back</a>
     </form>
 </div>
 </div>

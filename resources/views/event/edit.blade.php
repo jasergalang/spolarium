@@ -1,8 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-@include('layout.artHeader')
-@include('layout.artNav')
+
 <body class="bg-gray-100">
     <div class="container mx-auto mt-8">
         <h1 class="text-3xl font-bold mb-8">Edit Event</h1>
@@ -63,7 +62,7 @@
             </div>
         </div>
     </div>
-
+    <a href="{{ route('event.index') }}" class="button">Go Back</a>
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>

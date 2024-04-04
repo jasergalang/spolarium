@@ -62,7 +62,7 @@
         </tbody>
     </table>
 
-   
+
 
 
 <!-- Bootstrap JS -->
@@ -76,20 +76,49 @@
     });
 </script>
 
-<!-- Show Artwork Modal -->
-<div class="modal fade" id="showArtworkModal" tabindex="-1" aria-labelledby="showArtworkModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="showArtworkModalLabel">Artwork</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-                <img src="https://via.placeholder.com/800x600" class="img-fluid rounded" alt="Artwork">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showArtworkModal{{ $artwork->id }}">
+    View Artwork
+</button>
+
+<!-- Modal -->
+@foreach ($artworks as $artwork)
+    <!-- Show Event Modal -->
+    <div class="modal fade" id="showArtworkModal{{ $artwork->id }}" tabindex="-1" aria-labelledby="showArtworkModalLabel{{ $artwork->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="showArtworkModalLabel{{ $artwork->id }}">{{ $artwork->title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Artwork Name:</strong> {{ $artwork->name }}</p>
+                    <p><strong>Artwork Price:</strong> {{ $artwork->price }}</p>
+                    <p><strong>Artwork Description:</strong> {{ $artwork->desc }}</p>
+                    <p><strong>Artwork Category:</strong> {{ $artwork->category }}</p>
+                    <p><strong>Artwork Dimensions:</strong> {{ $artwork->dimension }}</p>
+                    <p><strong>Artwork Image:</strong></p>
+                    <div class="text-center">
+                      @if ($artwork->image->isNotEmpty())
+<div style="display: flex;">
+@foreach ($artwork->image as $image)
+    <img src="{{ asset('images/' . $artwork->image->first()->image_path) }}" alt="{{ $artwork->title }}" style="max-width: 100px; max-height: 100px; margin-right: 10px;">
+@endforeach
+</div>
+@else
+No Image
+@endif
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <!-- Add additional buttons if needed -->
+                </div>
             </div>
         </div>
     </div>
-</div>
+@endforeach
 @endsection
 @section('scripts')
 @parent

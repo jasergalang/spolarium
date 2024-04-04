@@ -54,13 +54,11 @@
          {{-- navbar links --}}
          <div class="flex items-center justify-between flex-grow pl-12">
              <div class="flex items-center space-x-6 capitalize">
-                 <a href="{{ route('artwork.dashboard') }}"class="text-gray-200 hover:underline hover:text-white transition">HomeDashboard</a>
-                 <a href="{{ route('material.dashboard') }}"class="text-gray-200 hover:underline hover:text-white transition">MaterialDashboard</a>
+                 <a href="{{ route('artwork.dashboard') }}"class="text-gray-200 hover:underline hover:text-white transition">Artwork Dashboard</a>
                  <a href="{{ route('artwork.create') }}" class="text-gray-200 hover:underline hover:text-white transition">Artworks</a>
-                 <a href="{{ route('material.create') }}" class="text-gray-200 hover:underline hover:text-white transition">Materials</a>
-                 <a href="" class="text-gray-200 hover:underline hover:text-white transition">Purchases</a>
-                 <a href="{{ route('artwork.dashboard') }}"class="text-gray-200 hover:underline hover:text-white transition">Artworks Recycle Bin</a>
-                 <a href="" class="text-gray-200 hover:underline hover:text-white transition">Profile</a>
+                 <a href="{{ route('blogs.index') }}"class="text-gray-200 hover:underline hover:text-white transition">Blogs Dashboard</a>
+                 <a href="{{ route('blogs.create') }}" class="text-gray-200 hover:underline hover:text-white transition">Blogs</a>
+                
              </div>
              {{-- login and register --}}
              <a href="" class="text-gray-200 hover:underline hover:text-white transition">Login/Register</a>

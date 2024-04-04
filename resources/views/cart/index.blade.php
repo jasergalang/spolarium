@@ -17,18 +17,19 @@
                 <!-- Name -->
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700">Name</label>
-                    <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" disabled>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" value="{{ Auth::user()->fname }} {{ Auth::user()->lname }}" disabled>
                 </div>
                 <!-- Email -->
                 <div class="mb-4">
                     <label for="email" class="block text-gray-700">Email</label>
-                    <input type="email" id="email" name="email" class="form-input" placeholder="example@example.com" disabled>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="example@example.com" value="{{ Auth::user()->email }}" disabled>
                 </div>
                 <!-- Contact -->
                 <div class="mb-4">
                     <label for="contact" class="block text-gray-700">Contact</label>
-                    <input type="text" id="contact" name="contact" class="form-input" placeholder="Phone number" disabled>
+                    <input type="text" id="contact" name="contact" class="form-input" placeholder="Phone number" value="{{ Auth::user()->contact }}" disabled>
                 </div>
+
             </div>
             <!-- Shipping Information -->
             <div class="bg-white rounded-lg shadow-md p-6 mb-6">
@@ -86,7 +87,7 @@
         @foreach ($cart->material->unique('id') as $materials)
         <div class="bg-white p-2 rounded-lg shadow-md mb-4 flex items-center justify-between">
             <div class="flex items-center">
-                <input type="checkbox" class="mr-2">
+                <input type="" name="selected_materials[]" class="mr-2">
                 <img src="{{ asset('images/' . $materials->image->first()->image_path) }}" alt="{{ $materials->name }}" class="w-24 h-24 object-cover">
                 <div class="ml-4">
                     <h2 class="text-lg font-semibold">{{ $materials->name }}</h2>
@@ -94,7 +95,7 @@
                     <!-- Quantity input -->
                     <div class="mt-2">
                         <label for="quantity_{{ $materials->id }}" class="text-gray-600">Quantity:</label>
-                        <input ttype="hidden" id="quantity_{{ $materials->id }}" name="material_quantities[{{ $materials->id }}]"  value="{{ $materialQuantities[$materials->id] ?? 0 }}" min="1" class="w-20 px-2 py-1 border rounded-md">
+                        <input type="hidden" id="quantity_{{ $materials->id }}" name="material_quantities[{{ $materials->id }}]"  value="{{ $materialQuantities[$materials->id] ?? 0 }}" min="1" class="w-20 px-2 py-1 border rounded-md">
                     </div>
                 </div>
             </div>
@@ -110,7 +111,7 @@
         @foreach ($cart->artwork->unique('id') as $artworks)
         <div class="bg-white p-2 rounded-lg shadow-md mb-4 flex items-center justify-between">
             <div class="flex items-center">
-                <input type="checkbox" class="mr-2" >
+                <input type="checkbox"name="selected_artworks[]" class="mr-2" >
                 <img src="{{ asset('images/' . $artworks->image->first()->image_path) }}" alt="{{ $artworks->name }}" class="w-24 h-24 object-cover">
                 <div class="ml-4">
                     <h2 class="text-lg font-semibold">{{ $artworks->name }}</h2>
@@ -129,10 +130,12 @@
             </form>
         </div>
         @endforeach
+
     </form>
     @php
     session()->put('artwork_quantities', $artworkQuantities);
     session()->put('material_quantities', $materialQuantities);
+
 @endphp
 
     </div>

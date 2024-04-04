@@ -74,8 +74,6 @@ Route::middleware('role:admin')->group(function () {
     Route::get('/order/index', [OrderController::class, 'index'])->name('order.index');
     Route::post('orders/{id}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
-
-
     Route::get('/material/dashboard', [MaterialController::class, 'dashboard'])->name('material.dashboard');
     Route::get('/material/create', [MaterialController::class, 'create'])->name('material.create');
     Route::post('/material', [MaterialController::class, 'store'])->name('material.store');
@@ -86,7 +84,6 @@ Route::middleware('role:admin')->group(function () {
 });
 
 Route::middleware('role:artist')->group(function () {
-
 
     Route::get('/profile', [AuthController::class, 'show'])->name('user.profile');
 
