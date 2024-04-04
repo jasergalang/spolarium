@@ -1,10 +1,18 @@
 @extends('layout.layout')
-
+@extends('layout.cusNav')
 @section('content')
 <!-- Hero Section -->
 <section class="bg-gray-100 py-20">
     <div class="container mx-auto mt-8">
         <h1 class="text-3xl font-bold mb-8">Dashboard</h1>
+        <div class="grid grid-cols-3 gap-4">
+            @foreach($events as $event)
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden event-card">
+                @if($event->eventImage)
+                <img src="{{ asset('/storage/' . $event->image->image_path) }}" alt="Event" class="w-full h-64 object-cover">
+            @else
+                <img src="https://via.placeholder.com/400x200" alt="Placeholder Image" class="w-full h-64 object-cover">
+            @endif
 
         <div class="swiper-container">
             <div class="swiper-wrapper">

@@ -44,10 +44,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mb-6">
+                    <!-- <div class="col-md-6 mb-6">
                         <label for="status" class="block text-gray-700 font-bold mb-2">Status</label>
                         <input type="text" class="form-control rounded-md border-gray-300 w-full py-2 px-4 focus:outline-none focus:border-blue-400" id="status" name="status" value="{{ $user->status }}" required>
-                    </div>
+                    </div> -->
                     <div class="col-md-6 mb-6">
                         <label for="password" class="block text-gray-700 font-bold mb-2">Password</label>
                         <input type="text" class="form-control rounded-md border-gray-300 w-full py-2 px-4 focus:outline-none focus:border-blue-400" id="password" name="password" >

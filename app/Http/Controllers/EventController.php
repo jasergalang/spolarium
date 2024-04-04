@@ -13,8 +13,7 @@ class EventController extends Controller
     // Get all events
     public function dashboard()
     {
-        $events = Event::withTrashed()->get();
-
+        $events = Event::all(); 
         return view('event.dashboard', compact('events'));
     }
 
