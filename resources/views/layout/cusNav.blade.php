@@ -22,7 +22,7 @@
                         <a href="{{ route('artwork.index') }}" class="text-gray-100 hover:underline hover:text-red-500 pl-12 hover:scale-105 transition">Artworks</a>
                         <a href="{{ route('material.index') }}" class="text-gray-100 hover:underline hover:text-red-500 pl-12 hover:scale-105 transition">Materials</a>
                         <a href="{{ route('blogs.show') }}" class="text-gray-100 hover:underline hover:text-red-500 pl-12 hover:scale-105 transition">Blogs</a>
-                        <a href="{{ route('material.events') }}" class="text-gray-100 hover:underline hover:text-red-500 pl-12 hover:scale-105 transition">Events</a>
+                        <a href="{{ route('event.dashboard') }}" class="text-gray-100 hover:underline hover:text-red-500 pl-12 hover:scale-105 transition">Events</a>
                         {{-- <a href="#" class="text-gray-700 hover:underline hover:text-red-500 pl-12 hover:scale-105 transition">About us</a> --}}
                         @include('layout.message')
                         {{-- listing a property button --}}

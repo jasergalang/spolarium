@@ -20,7 +20,7 @@
                 <div class="p-6">
                     <h3 class="text-3xl font-semibold text-gray-800 mb-4">{{ $blog->title }}</h3>
                     <p class="text-gray-700 text-lg leading-relaxed mb-6">{{ $blog->content }}</p>
-                    <a href="#" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Read More</a>
+                    
                 </div>
             </div>
         @endforeach
