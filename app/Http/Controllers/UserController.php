@@ -90,5 +90,15 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User restored successfully');
     }
 
+    public function destroyforuser($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Change the status to 'deactivated'
+        $user->update(['status' => 'deactivated']);
+
+        return redirect()->route('login')->with('success', 'User deactivated successfully');
+
+    }
 
 }

@@ -121,7 +121,6 @@ class AuthController extends Controller
        $credentials = $request->only('email', 'password');
        if (Auth::attempt($credentials)) {
            $user = Auth::user();
-<<<<<<< HEAD
 
            // Check if the user's account is active and email is verified
            if ($user->status === 'active' && $user->email_verified_at !== null) {
@@ -148,7 +147,6 @@ class AuthController extends Controller
            } elseif ($user->status === 'deactivated') {
                Auth::logout();
                return back()->withInput()->withErrors(['email' => 'Your account is deactivated.']);
-=======
            $request->session()->regenerate();
            switch ($user->roles) {
                case 'artist':
@@ -171,19 +169,18 @@ class AuthController extends Controller
             //        break;
                default:
                    return back()->withInput()->withErrors(['email' => 'Invalid user role.']);
->>>>>>> parent of bb8eea6 (deactivate with auth emails)
+
            }
            return back()->withInput()->withErrors(['email' => 'Invalid user role.']);
        }
 
        return back()->withInput()->withErrors(['email' => 'Invalid email or password.']);
    }
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> parent of bb8eea6 (deactivate with auth emails)
+   }
+
 
    public function verify($token)
 {

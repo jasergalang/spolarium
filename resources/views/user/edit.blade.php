@@ -56,6 +56,11 @@
 
                 <button type="submit" class="bg-gray-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update</button>
             </form>
+            <form method="POST" action="{{ route('user.destroyforuser', $user->id) }}" onsubmit="return confirm('Are you sure you want to deactivate your account?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Deactivate Account</button>
+            </form>
         </div>
     </div>
 </div>
