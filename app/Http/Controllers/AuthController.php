@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{
-    User, Artist, Customer, Cart, Artwork, Material};
+    User, Artist, Customer, Cart,Artwork    ,Material};
     use App\Mail\RegisterUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -122,26 +122,32 @@ class AuthController extends Controller
        $credentials = $request->only('email', 'password');
        if (Auth::attempt($credentials)) {
            $user = Auth::user();
-           $request->session()->regenerate();
-           switch ($user->roles) {
-               case 'artist':
-                   $artist = Artist::where('user_id', $user->id)->first();
-                   if ($artist) {
-                       return redirect()->route('artwork.dashboard')->with('artist_id', $user->id);
-                   }
-                   break;
-               case 'customer':
-                   $customer = Customer::where('user_id', $user->id)->first();
-                   if ($customer) {
-                       return redirect()->route('home')->with('customer_id', $user->id);
-                   }
-                   break;
-                   case 'admin':
-                    return redirect()->route('event.index');
-                    break;
 
-               default:
-                   return back()->withInput()->withErrors(['email' => 'Invalid user role.']);
+           // Check if the user's account is active and email is verified
+           if ($user->status === 'active' && $user->email_verified_at !== null) {
+               $request->session()->regenerate();
+               switch ($user->roles) {
+                   case 'artist':
+                       $artist = Artist::where('user_id', $user->id)->first();
+                       if ($artist) {
+                           return redirect()->route('artwork.dashboard')->with('artist_id', $user->id);
+                       }
+                       break;
+                   case 'customer':
+                       $customer = Customer::where('user_id', $user->id)->first();
+                       if ($customer) {
+                           return redirect()->route('home')->with('customer_id', $user->id);
+                       }
+                       break;
+                   default:
+                       return back()->withInput()->withErrors(['email' => 'Invalid user role.']);
+               }
+           } elseif ($user->email_verified_at === null) {
+               Auth::logout();
+               return back()->withInput()->withErrors(['email' => 'Please verify your email address.']);
+           } elseif ($user->status === 'deactivated') {
+               Auth::logout();
+               return back()->withInput()->withErrors(['email' => 'Your account is deactivated.']);
            }
        }
 
@@ -192,5 +198,8 @@ function logout()
       return redirect()->back()->with(compact('artwork', 'material'));
 
     }
+
+
+
 
 }
