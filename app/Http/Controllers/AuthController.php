@@ -111,7 +111,8 @@ class AuthController extends Controller
        ]);
 
    }
-   function loginPost(Request $request)
+
+   public function loginPost(Request $request)
    {
        $request->validate([
            'email' => 'required|email',
@@ -142,11 +143,13 @@ class AuthController extends Controller
                default:
                    return back()->withInput()->withErrors(['email' => 'Invalid user role.']);
            }
-           return back()->withInput()->withErrors(['email' => 'Invalid user role.']);
        }
 
        return back()->withInput()->withErrors(['email' => 'Invalid email or password.']);
    }
+
+
+
 
    public function verify($token)
 {

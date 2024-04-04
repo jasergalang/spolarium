@@ -58,7 +58,11 @@ public function index()
     }
 
     
-
+    public function showBlogs()
+    {
+        $blogs = Blog::with('image')->take(6)->get();
+        return view('blogs.show', compact('blogs'));
+    }
 
 
     public function edit($id)
