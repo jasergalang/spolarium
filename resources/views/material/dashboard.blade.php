@@ -1,5 +1,6 @@
 @extends('layout.layout')
 @section('content')
+@include('layout.artHeader')
 @include('layout.adminNav')
 <!-- Main Content -->
 <div class="container mx-auto mt-8">

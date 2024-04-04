@@ -152,6 +152,15 @@ class CartController extends Controller
         $order->shipping_address = $shippingAddress;
         $order->payment_method = $paymentMethod;
         $order->save();
+        $order = Order::where('customer_id', $customerId)->first();
+
+        // If no order exists, create a new one
+        $order = new Order();
+    $order->customer_id = $customerId;
+    $order->status = 'pending';
+    $order->shipping_address = $shippingAddress;
+    $order->payment_method = $paymentMethod;
+    $order->save();
 
         // Retrieve material quantities from the input fields
         $materialQuantities = session('material_quantities');
@@ -179,6 +188,9 @@ class CartController extends Controller
                 $artwork->save();
             }
         }
+        $user = User::find($userId);
+
+        $user->sendEmailOrderReceiptNotification($order);
 
         return redirect()->back()->with('success', 'Order placed successfully!');
     }
