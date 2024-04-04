@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-@include('layout.adminNav')
+@include('layout.artNav')
 
 <form method="POST" action="{{ route('artwork.store') }}" enctype="multipart/form-data">
     @csrf

@@ -19,10 +19,11 @@
                 <p class="text-gray-500">{{ $user->email }}</p>
 
             </div>
-            <i class="fa-solid fa-minus mx-4"></i>
-            <h5 id="editProfileButton" class="text-sm font-light text-gray-600 hover:text-primary cursor-pointer">
-                Edit Profile
-            </h5>
+            <a href="{{ route('user.edit', ['id' => $user->id]) }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Edit Profile
+</a>
+
+
         </div>
         </div>
     </div>
