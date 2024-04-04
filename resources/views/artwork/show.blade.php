@@ -1,4 +1,6 @@
-           <!-- Button to view artwork (opens modal) -->
+
+    <h2 class="text-3xl font-medium text-gray-800 mb-6">Browse Artworks</h2>
+      <!-- Button to view artwork (opens modal) -->
            <button type="button" class="btn btn-primary bg-gray-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-full" onclick="openModal('{{ $artwork->id }}')">
             View Artwork
         </button>
@@ -65,3 +67,4 @@
                 modal.style.display = "none";
             }
         </script>
+

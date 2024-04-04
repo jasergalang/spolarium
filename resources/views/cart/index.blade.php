@@ -1,8 +1,8 @@
 @extends('layout.layout')
 
 @section('content')
-@include('layout.artHeader')
-@include('layout.artNav')
+@include('layout.cusHeader')
+@include('layout.cusNav')
 <!-- Checkout Form -->
 <form action="{{ route('order.store') }}" method="POST">
     @csrf
@@ -71,28 +71,6 @@
         </div>
     </div>
     </form>
-        <!-- Payment Information -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-
-            <!-- Card Number -->
-            <div class="mb-4">
-                <label for="card_number" class="block text-gray-700">Card Number</label>
-                <input type="text" id="card_number" name="card_number" class="form-input" placeholder="**** **** **** ****" required>
-            </div>
-            <div class="grid grid-cols-3 gap-4">
-                <!-- Expiry Date -->
-                <div class="mb-4">
-                    <label for="expiry_date" class="block text-gray-700">Expiry Date</label>
-                    <input type="text" id="expiry_date" name="expiry_date" class="form-input" placeholder="MM/YY" required>
-                </div>
-                <!-- CVV -->
-                <div class="mb-4">
-                    <label for="cvv" class="block text-gray-700">CVV</label>
-                    <input type="text" id="cvv" name="cvv" class="form-input" placeholder="123" required>
-                </div>
-            </div>
-        </div>
-        <!-- Submit Button -->
 
 
 </div>

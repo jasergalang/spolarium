@@ -58,9 +58,9 @@
                  <a href="{{ route('material.create') }}" class="text-gray-200 hover:underline hover:text-white transition">Materials</a>
                  <a href="{{ route('event.index') }}"class="text-gray-200 hover:underline hover:text-white transition">EventsDashboard</a>
                  <a href="{{ route('event.create') }}" class="text-gray-200 hover:underline hover:text-white transition">Events</a>
+                 <a href="{{ route('order.index') }}" class="text-gray-200 hover:underline hover:text-white transition">Orders</a>
              </div>
-             {{-- login and register --}}
-             {{-- end of login and register --}}
+
          </div>
          {{-- end of navbar links --}}
          @auth

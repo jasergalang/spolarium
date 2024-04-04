@@ -14,43 +14,70 @@
                 <img src="https://via.placeholder.com/400x200" alt="Placeholder Image" class="w-full h-64 object-cover">
             @endif
 
-                <div class="p-6">
-                    <h2 class="font-semibold text-xl mb-2">{{ $event->title }}</h2>
-                    <p class="text-gray-600">{{ $event->description }}</p>
-                    <div class="mt-4 flex justify-between">
-                        <span class="text-gray-500">Date: {{ $event->date }}</span>
-                        <button class="px-4 py-2 bg-primary text-white rounded-full">Register</button>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                @foreach($events as $event)
+                <div class="swiper-slide">
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden event-card">
+
+                        @foreach($event->image as $images)
+                        <img src="{{ asset('images/' . $images->image_path) }}" alt="Event" class="w-full h-64 object-cover">
+                        @endforeach
+
+                        <div class="p-6">
+                            <h2 class="font-semibold text-xl mb-2">{{ $event->title }}</h2>
+                            <p class="text-gray-600">{{ $event->description }}</p>
+                            <div class="mt-4 flex justify-between">
+                                <span class="text-gray-500">Date: {{ $event->date }}</span>
+                                <button class="px-4 py-2 bg-primary text-white rounded-full">Register</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 </section>
 
-
-
-<!-- Bootstrap JS (Optional) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 @endsection
+
 @section('scripts')
 @parent
 
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        // Optional parameters
+        slidesPerView: 'auto',
+        spaceBetween: 30,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+</script>
+
 @if(session('success'))
-    <script>
-        alert("{{ session('success') }}");
-    </script>
+<script>
+    alert("{{ session('success') }}");
+</script>
 @endif
 @if(session('error'))
-    <script>
-        alert("{{ session('error') }}");
-    </script>
+<script>
+    alert("{{ session('error') }}");
+</script>
 @endif
 
 @if ($errors->any())
-    <script>
-        var errorMessage = @json($errors->all());
-        alert(errorMessage.join('\n'));
-    </script>
+<script>
+    var errorMessage = @json($errors->all());
+    alert(errorMessage.join('\n'));
+</script>
 @endif
+
 @endsection

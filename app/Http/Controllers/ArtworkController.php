@@ -35,6 +35,14 @@ class ArtworkController extends Controller
          $artworks = Artwork::with(['artist.user', 'image'])->take(6)->get();
          return view('artwork.index', compact('artworks'));
      }
+     public function homeArtwork()
+     {
+        $userId = Auth::id();
+        $customer = Customer::where('user_id', $userId)->first();
+
+         $artworks = Artwork::with(['artist.user', 'image'])->get();
+         return view('artwork.homeArtwork', compact('artworks', 'customer'));
+     }
 
      public function home()
     {

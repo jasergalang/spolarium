@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use ConsoleTVs\Charts\Facades\Charts;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 class UserController extends Controller
 {
     /**
@@ -79,16 +79,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        
-        // Update the status to 'deactivated'
-        $user->update(['status' => 'deactivated']);
-    
-        // Alternatively, if you want to delete the user record, you can uncomment the line below
-        // $user->delete();
-    
-        return redirect()->back()->with('success', 'User deactivated successfully');
+        $user->delete();
+        return redirect()->back()->with('success', 'User deleted successfully');
     }
-    
 
     public function restore($id)
     {
@@ -96,16 +89,16 @@ class UserController extends Controller
         $user->restore();
         return redirect()->back()->with('success', 'User restored successfully');
     }
+
     public function destroyforuser($id)
     {
         $user = User::findOrFail($id);
-        
+
         // Change the status to 'deactivated'
         $user->update(['status' => 'deactivated']);
-        
+
         return redirect()->route('login')->with('success', 'User deactivated successfully');
 
     }
-    
 
 }

@@ -27,6 +27,6 @@ class Artwork extends Model
     }
     public function order(){
 
-        return $this->belongsToMany(Order::class, 'artwork_order', 'artwork_id', 'order_id');
+        return $this->belongsToMany(Order::class, 'artwork_order', 'order_id', 'artwork_id');
     }
 }

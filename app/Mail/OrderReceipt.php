@@ -17,12 +17,12 @@ class OrderReceipt extends Mailable
     public $order;
     /**
      * Create a new message instance.
-     * 
+     *
      */
-    public function __construct(Order $order)
+    public function __construct( Order $order)
     {
         $this->order = $order;
-    
+
     }
 
     /**
